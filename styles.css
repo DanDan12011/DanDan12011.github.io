@@ -21,9 +21,17 @@ body {
     background-color: #227a10;
     color: #fff;
     border: none;
+    margin-bottom: 50px;
 }
 
 
 #space {
     margin-bottom: 20px;
+}
+
+#budgetdisplay {
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }

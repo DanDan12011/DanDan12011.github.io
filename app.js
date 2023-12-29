@@ -15,9 +15,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (!isNaN(totalAmount) && !isNaN(numberOfMonths) && numberOfMonths > 0) {
             const monthlyBudget = totalAmount / numberOfMonths;
-            alert("Your monthly budget is: $" + monthlyBudget.toFixed(2));
+            
+            budgetdisplay(monthlyBudget);
+
+            // saveToLocalStorage(totalAmount,numberOfMonths);
+
         } else {
             alert("Please enter valid values for total amount and number of months.");
         }
+
+    }
+
+
+    function budgetdisplay(monthlyBudget){
+        const budget = document.getElementById("budgetdisplay");
+
+        budget.textContent = "Monthly Budget: " + monthlyBudget.toFixed(2);
+
     }
 });
