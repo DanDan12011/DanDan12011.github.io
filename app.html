@@ -20,10 +20,13 @@
 
 <!-- divs are basically containers that can hold multiple different things in them -->
 <!-- when giving an id to a div, you can use this id to call it later in a css or javascript file -->
+
+
+<!-- SIMPLE VIEW -->
 <div id="simpleview">
     <div id = "options">
         <button id = 'simple'>Simple</button>
-        <button id = 'advanced'>Advanced</button>
+        <button id = 'advanced_inactive'>Advanced</button>
     </div>
     <div id="container">                             
         <h1>Enter your Total Amount of Money</h1> 
@@ -50,10 +53,12 @@
 </div>
 
 
+
+<!-- ADVANCED VIEW -->
 <div id="advancedview">
-    <h2>Advanced</h2>
+    <h2>Advanced Tab</h2>
     <div id = "options">
-        <button id = 'simple'>Simple</button>
+        <button id = 'simple_inactive'>Simple</button>
         <button id = 'advanced'>Advanced</button>
     </div>
     <div id="container">                             
@@ -71,12 +76,12 @@
         <div id ="showbudget">
             <h1>Eneter amount of months you want to budget</h1>
             <h3>Months: 
-            <input id = "months+adv">
+            <input id = "months_adv">
             </h3>
         </div>
-        <h2 id = "submit_btn"><input type = 'submit' id = "submit"></h2>
+        <h2 id = "submit_btn"><input type = 'submit' id = "submit_adv"></h2>
     </div>
 
-    <div id = "budgetdisplay"></div>
+    <div id = "budgetdisplay_adv"></div>
 </div>
 </html>
