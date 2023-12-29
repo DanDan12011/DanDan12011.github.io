@@ -87,13 +87,15 @@
                 <th>Category</th>
                 <th>%</th>
             </tr>
-            <tr>
-                <td><input id = "category" placeholder = "Category"></td>
-                <td><input  id = "category_percentage" placeholder="Percentage" ></td>
-            </tr>
-            <button id="addrow">Add Row</button>
-            
+                <tr>
+                <div id = 'rows_container'>
+                    <td><input id = "category" placeholder = "Category"></td>
+                    <td><input  id = "category_percentage" placeholder="Percentage" ></td>
+                </div>
+                </tr>
         </table>
+        <button id = "addrow">Add Row</button>
+        <button id = "deleterow">Delete Row</button>
     </div>
 
     <div id = "budgetdisplay_adv"></div>

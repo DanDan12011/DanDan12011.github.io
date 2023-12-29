@@ -101,27 +101,42 @@ body {
 }
 
 #table_container {
-    display: flex;
-    align-items: center;
-    margin: 0 auto;
-    flex-direction: column;
-}
-#table {
-    flex-direction: column;
+    display: table;
     align-items: center;
     margin: 0 auto;
 }
+
 #table th{
     font-size: 40px;
     
     
 }
 
-#category{
-    margin-left: 15px;
+#table td{
+    margin-left: 10px;
     padding: 10px 10px;
 }
 
-#category_percentage {
-    padding: 10px 5px;
+#addrow {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    padding: 10px 159px;
+    background-color: #227a10;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+ 
 }
+
+#deleterow {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    padding: 10px 152px;
+    background-color: #b33323;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+

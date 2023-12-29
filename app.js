@@ -113,6 +113,64 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
+    //ADD ROWS BUTTON
+
+    const addrowsbutton = document.getElementById('addrow').addEventListener('click',addrow);
+
+    function addrow(){
+        const table = document.getElementById('table');
+
+        if(table.rows.length > 6){
+            alert('Maximum amount of rows reached (6)');
+            return;
+        }
+    
+
+        // Create a new row
+        const newRow = table.insertRow();
+        newRow.id = 'row_' + table.rows.length;
+
+        // Create cells for the new row
+        const cell1 = newRow.insertCell(0);
+        const cell2 = newRow.insertCell(1);
+
+        // Create input elements for the cells
+        const inputCategory = document.createElement('input');
+        const inputPercentage = document.createElement('input');
+
+        // Set attributes for the input elements
+        inputCategory.placeholder = 'Category';
+        inputCategory.id = 'category_' + table.rows.length;
+
+        inputPercentage.placeholder = 'Percentage';
+        inputPercentage.id = 'category_percentage_' + table.rows.length -1;
+
+
+        // Append input elements to the cells
+        cell1.appendChild(inputCategory);
+        cell2.appendChild(inputPercentage);
+    }
+
+
+    const deleterowbutton = document.getElementById('deleterow').addEventListener('click',deleterow);
+    function deleterow(){
+        const table = document.getElementById('table');
+        const rows = table.rows;
+
+        // Ensure there is at least one row
+        if (rows.length > 2) {
+            // Get the index of the last row
+            const lastRowIndex = rows.length - 1;
+
+            // Remove the last row
+            table.deleteRow(lastRowIndex);
+        } else {
+            alert('Cannot delete the last row. There must be at least one row.');
+        }
+    }
+    
+
+
 
     
     
