@@ -56,7 +56,6 @@
 
 <!-- ADVANCED VIEW -->
 <div id="advancedview">
-    <h2>Advanced Tab</h2>
     <div id = "options">
         <button id = 'simple_inactive'>Simple</button>
         <button id = 'advanced'>Advanced</button>
@@ -74,12 +73,27 @@
         <div id = "space"></div>
 
         <div id ="showbudget">
-            <h1>Eneter amount of months you want to budget</h1>
+            <h1>Enter amount of months you want to budget</h1>
             <h3>Months: 
             <input id = "months_adv">
             </h3>
         </div>
         <h2 id = "submit_btn"><input type = 'submit' id = "submit_adv"></h2>
+    </div>
+
+    <div id="table_container">
+        <table id = 'table'>
+            <tr>
+                <th>Category</th>
+                <th>%</th>
+            </tr>
+            <tr>
+                <td><input id = "category" placeholder = "Category"></td>
+                <td><input  id = "category_percentage" placeholder="Percentage" ></td>
+            </tr>
+            <button id="addrow">Add Row</button>
+            
+        </table>
     </div>
 
     <div id = "budgetdisplay_adv"></div>
