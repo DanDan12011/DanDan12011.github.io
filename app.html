@@ -1,34 +1,82 @@
+<!-- typing "!" will automatically give you a template for html code -->
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- link rel allows you to connect html to css to stylize the webpage -->
+    <!-- script defer src allows to connect the html to a javascript file to allow for functions and backend work -->
+
     <link rel = "stylesheet" type = "text/css" href = "styles.css">
     <script defer src="app.js"></script>
     
     <title>Budget Calculator
     </title>
 </head>
-<div id="container">
-    <h1>Enter your Total Amount of Money</h1> 
 
-    <div id="Enteringamount">
+<!-- divs are basically containers that can hold multiple different things in them -->
+<!-- when giving an id to a div, you can use this id to call it later in a css or javascript file -->
+<div id="simpleview">
+    <div id = "options">
+        <button id = 'simple'>Simple</button>
+        <button id = 'advanced'>Advanced</button>
+    </div>
+    <div id="container">                             
+        <h1>Enter your Total Amount of Money</h1> 
 
-        <h3 id = "totalamount-container">$
-        <input id="totalamount">
-        </h3>
+        <div id="Enteringamount">
+
+            <h3 id = "totalamount-container">$:
+            <input id="totalamount">
+            </h3>
+        </div>
+
+        <div id = "space"></div>
+
+        <div id ="showbudget">
+            <h1>Eneter amount of months you want to budget</h1>
+            <h3>Months: 
+            <input id = "months">
+            </h3>
+        </div>
+        <h2 id = "submit_btn"><input type = 'submit' id = "submit"></h2>
     </div>
 
-    <div id = "space"></div>
-
-    <div id ="showbudget">
-        <h1>Eneter amount of months you want to budget</h1>
-        <h3>Months: 
-        <input id = "months">
-        </h3>
-    </div>
-    <h2 id = "submit_btn"><input type = 'submit' id = "submit"></h2>
+    <div id = "budgetdisplay"></div>
 </div>
 
-<div id = "budgetdisplay"></div>
+
+<div id="advancedview">
+    <h2>Advanced</h2>
+    <div id = "options">
+        <button id = 'simple'>Simple</button>
+        <button id = 'advanced'>Advanced</button>
+    </div>
+    <div id="container">                             
+        <h1>Enter your Total Amount of Money</h1> 
+
+        <div id="Enteringamount">
+
+            <h3 id = "totalamount-container">$:
+            <input id="totalamount_adv">
+            </h3>
+        </div>
+
+        <div id = "space"></div>
+
+        <div id ="showbudget">
+            <h1>Eneter amount of months you want to budget</h1>
+            <h3>Months: 
+            <input id = "months+adv">
+            </h3>
+        </div>
+        <h2 id = "submit_btn"><input type = 'submit' id = "submit"></h2>
+    </div>
+
+    <div id = "budgetdisplay"></div>
+</div>
 </html>
