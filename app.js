@@ -46,8 +46,8 @@ document.addEventListener("DOMContentLoaded", function () {
     
     // Function to calculate the budget
     function calculateBudget() {
-        const totalAmount = parseFloat(totalAmountInput.value.replace(/,/g, ''));
-        const numberOfMonths = parseInt(monthsInput.value);
+        let totalAmount = parseFloat(totalAmountInput.value.replace(/,/g, ''));
+        let numberOfMonths = parseInt(monthsInput.value);
 
         if (!isNaN(totalAmount) && !isNaN(numberOfMonths) && numberOfMonths > 0) {
             const monthlyBudget = totalAmount / numberOfMonths;
@@ -55,6 +55,12 @@ document.addEventListener("DOMContentLoaded", function () {
             budgetdisplay(monthlyBudget);
 
             // saveToLocalStorage(totalAmount,numberOfMonths)
+        }
+        else {
+            totalAmount = 0;
+            numberOfMonths = 0;
+            monthlyBudget = 0;
+            budgetdisplay(monthlyBudget);
         }
             
 
@@ -85,17 +91,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to calculate the budget
     function calculateBudget_adv() {
-        const totalAmount_adv = parseFloat(totalAmountInput_adv.value.replace(/,/g, ''));
-        const numberOfMonths_adv = parseInt(monthsInput_adv.value);
+        let totalAmount_adv = parseFloat(totalAmountInput_adv.value.replace(/,/g, ''));
+        let numberOfMonths_adv = parseInt(monthsInput_adv.value);
 
         if (!isNaN(totalAmount_adv) && !isNaN(numberOfMonths_adv) && numberOfMonths_adv > 0) {
             const monthlyBudget_adv = totalAmount_adv / numberOfMonths_adv;
             
             budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv);
             
-
-
+    } else {
+        totalAmount_adv = 0;
+        numberOfMonths_adv = 0;
+        monthlyBudget_adv = 0;
+        budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv);
     }
+
 }
 
     function calculate_percents(){
@@ -172,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function addrow(){
         const table = document.getElementById('tablerows');
 
-        if(table.rows.length > 6){
+        if(table.rows.length >= 6){
             alert('Maximum amount of rows reached (6)');
             return;
         }
@@ -241,9 +251,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let categoryInput = document.getElementById('category_1');
         let percentInput = document.getElementById('category_percentage_1');
+        let totalAmount_adv = document.getElementById('totalamount_adv');
+        let numberOfMonths_adv = document.getElementById('months_adv');
+        let monthlyBudget_adv;
         categoryInput.value = '';
         percentInput.value = '';
-        resetrowsbutton.scrollIntoView({behavior: 'instant'});
+        totalAmount_adv.value = '';
+        numberOfMonths_adv.value = '';
+        
+        totalAmount_adv = 0;
+        numberOfMonths_adv = 0;
+        monthlyBudget_adv = 0;
+        budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv);
 
         
 
