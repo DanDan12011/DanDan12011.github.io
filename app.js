@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log('category: ' + categoryInput.value + " Percent: " + percentInput.value);
         
 
-        if (categoryInput && percentInput) {
+        if (categoryInput && percentInput && categoryInput.value.trim() !== '' && percentInput.value.trim() !== '' && !isNaN(monthlyBudget_adv)) {
             const category = categoryInput.value;
             const percentage = parseFloat(percentInput.value);
 
@@ -146,6 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
             budget_view.appendChild(categoryElement);
         });
         }
+        
         
     }
 
