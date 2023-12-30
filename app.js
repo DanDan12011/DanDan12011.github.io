@@ -38,12 +38,13 @@ document.addEventListener("DOMContentLoaded", function () {
     
     const totalAmountInput = document.getElementById("totalamount");
     const monthsInput = document.getElementById("months");
-    const submitButton = document.getElementById("submit");
-    
-    // Adding click event listener
-    //this allows a function to play when the user clicks the submit button
-    submitButton.addEventListener("click", calculateBudget);
 
+    
+    
+    // Add event listener so that it listens for an 'input'
+    totalAmountInput.addEventListener('input',calculateBudget);
+    monthsInput.addEventListener('input',calculateBudget);
+    
     // Function to calculate the budget
     function calculateBudget() {
         const totalAmount = parseFloat(totalAmountInput.value.replace(/,/g, ''));
@@ -58,9 +59,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-        } else {
-            alert("Please enter valid values for total amount and number of months.");
         }
+            
 
     }
 
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function budgetdisplay(monthlyBudget){
         const budget = document.getElementById("budgetdisplay");
 
-        budget.textContent = "Monthly Budget: " + monthlyBudget.toFixed(2);
+        budget.textContent = "Monthly Budget: $" + monthlyBudget.toFixed(2);
 
     }
 
@@ -82,7 +82,8 @@ document.addEventListener("DOMContentLoaded", function () {
     
     // Adding click event listener
     //this allows a function to play when the user clicks the submit button
-    submitButton_adv.addEventListener("click", calculateBudget_adv);
+    totalAmountInput_adv.addEventListener('input',calculateBudget_adv);
+    monthsInput_adv.addEventListener('input',calculateBudget_adv);
 
     // Function to calculate the budget
     function calculateBudget_adv() {
@@ -92,23 +93,25 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!isNaN(totalAmount_adv) && !isNaN(numberOfMonths_adv) && numberOfMonths_adv > 0) {
             const monthlyBudget_adv = totalAmount_adv / numberOfMonths_adv;
             
-            budgetdisplay_adv(monthlyBudget_adv);
+            budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv);
 
             // saveToLocalStorage(totalAmount,numberOfMonths);
 
 
 
-        } else {
-            alert("Please enter valid values for total amount and number of months.");
         }
 
     }
 
 
-    function budgetdisplay_adv(monthlyBudget_adv){
-        const budget_adv = document.getElementById("budgetdisplay_adv");
+    function budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv){
+        const total_adv = document.getElementById('totalamount_budget_adv');
+        const budget_adv = document.getElementById("monthly_budgetdisplay_adv");
+        const months_left = document.getElementById('months_left');
 
-        budget_adv.textContent = "Monthly Budget: " + monthlyBudget_adv.toFixed(2) + " (but advanced :>)";
+        total_adv.textContent = "Total Budget: $" + totalAmount_adv;
+        budget_adv.textContent = "Monthly Budget: $" + monthlyBudget_adv.toFixed(2);
+        months_left.textContent = "Months Left: " + numberOfMonths_adv;
 
     }
 
