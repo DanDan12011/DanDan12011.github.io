@@ -1,5 +1,4 @@
 
-
 // This simply waits until the webpage is fully loaded to start the code
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -77,10 +76,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const monthsInput_adv = document.getElementById("months_adv");
     const submitButton_adv = document.getElementById("submit_adv");
     
-    // Adding click event listener
-    //this allows a function to play when the user clicks the submit button
+    // Adding event listner
+    //this allows a function to play when the user inputs something
     totalAmountInput_adv.addEventListener('input',calculateBudget_adv);
     monthsInput_adv.addEventListener('input',calculateBudget_adv);
+    const submit_btn = document.getElementById('submit');
+    submit_btn.addEventListener('click',calculate_percents);
 
     // Function to calculate the budget
     function calculateBudget_adv() {
@@ -91,53 +92,55 @@ document.addEventListener("DOMContentLoaded", function () {
             const monthlyBudget_adv = totalAmount_adv / numberOfMonths_adv;
             
             budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv);
-
-            // saveToLocalStorage(totalAmount,numberOfMonths);
-
-            const submit_btn = document.getElementById('submit');
-            submit_btn.addEventListener('click',calculate_percents);
-
-            function calculate_percents(){
-            const categoryBudgets = [];
-            const table = document.getElementById('tablerows');
-            const rowcount = table.rows.length;
-            const budget_view = document.getElementById('final_budget');
-            budget_view.innerHTML = '';
-
-        for (let i = 1; i <= rowcount; i++) {
-            console.log('rowcount: ' + rowcount);
-            
-            const categoryInput = document.getElementById(`category_${i}`);
-            const percentInput = document.getElementById(`category_percentage_${i}`);
-            console.log('category: ' + categoryInput.value + " Percent: " + percentInput.value);
             
 
-            if (categoryInput && percentInput) {
-                const category = categoryInput.value;
-                const percentage = parseFloat(percentInput.value);
 
-                console.log(`Row ${i} - Category: ${category}, Percentage: ${percentage}`);
-
-                categoryBudgets.push({
-                    category,
-                    budget: (percentage / 100) * monthlyBudget_adv
-                });
-                
-                
-
-                categoryBudgets.forEach(categoryBudget => {
-                const categoryElement = document.createElement('div');
-                categoryElement.textContent = `${categoryBudget.category}: $${categoryBudget.budget.toFixed(2)}`;
-                budget_view.appendChild(categoryElement);
-            });
-            }
-            
-        }
-        
-
-    }
     }
 }
+
+    function calculate_percents(){
+        const totalAmount_adv = parseFloat(totalAmountInput_adv.value.replace(/,/g, ''));
+        const numberOfMonths_adv = parseInt(monthsInput_adv.value);
+        const monthlyBudget_adv = totalAmount_adv / numberOfMonths_adv;
+        
+        const categoryBudgets = [];
+        const table = document.getElementById('tablerows');
+        const rowcount = table.rows.length;
+        const budget_view = document.getElementById('final_budget');
+        const rowindex = rowcount;
+
+    for (let i = 1; i <= rowcount; i++){
+        console.log('rowcount: ' + rowcount);
+        
+        const categoryInput = document.getElementById(`category_${i}`);
+        const percentInput = document.getElementById(`category_percentage_${i}`);
+        console.log('category: ' + categoryInput.value + " Percent: " + percentInput.value);
+        
+
+        if (categoryInput && percentInput) {
+            const category = categoryInput.value;
+            const percentage = parseFloat(percentInput.value);
+
+            console.log(`Row ${i} - Category: ${category}, Percentage: ${percentage}`);
+
+            categoryBudgets.push({
+                category,
+                budget: (percentage / 100) * monthlyBudget_adv
+            });
+            
+            
+            budget_view.innerHTML = '';
+            categoryBudgets.forEach(categoryBudget => {
+            const categoryElement = document.createElement('div');
+            categoryElement.textContent = `${categoryBudget.category}: $${categoryBudget.budget.toFixed(2)}`;
+            budget_view.appendChild(categoryElement);
+        });
+        }
+        
+    }
+
+
+    }
         
 
 
@@ -207,7 +210,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const rows = table.rows;
 
         // Ensure there is at least one row
-        if (rows.length > 2) {
+        if (rows.length > 1) {
             // Get the index of the last row
             const lastRowIndex = rows.length - 1;
 
