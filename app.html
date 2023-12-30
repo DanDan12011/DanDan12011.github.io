@@ -85,21 +85,26 @@
     </div>
     <div id="table_container">
         <table id = 'table'>
-            <tr>
-                <th>Category</th>
-                <th>%</th>
-            </tr>
+            <thead>
                 <tr>
-                <div id = 'rows_container'>
-                    <td><input id = "category" placeholder = "Category"></td>
-                    <td><input  id = "category_percentage" placeholder="Percentage" ></td>
-                </div>
+                    <th>Category</th>
+                    <th>%</th>
                 </tr>
+            </thead>
+            <tbody id = 'tablerows'>
+                <tr>
+                    <div id = 'rows_container'>
+                        <td><input id = "category_1" placeholder = "Category"></td>
+                        <td><input  id = "category_percentage_1" placeholder="Percentage" ></td>
+                    </div>
+                </tr>
+            </tbody>
         </table>
         <button id = 'submit'>Submit</button>
         <button id = "addrow">Add Row</button>
         <button id = "deleterow">Delete Row</button>
     </div>
+    <div id = 'final_budget'></div>
     
 </div>
 </html>

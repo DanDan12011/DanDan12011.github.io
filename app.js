@@ -55,10 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
             
             budgetdisplay(monthlyBudget);
 
-            // saveToLocalStorage(totalAmount,numberOfMonths);
-
-
-
+            // saveToLocalStorage(totalAmount,numberOfMonths)
         }
             
 
@@ -97,23 +94,72 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // saveToLocalStorage(totalAmount,numberOfMonths);
 
+            const submit_btn = document.getElementById('submit');
+            submit_btn.addEventListener('click',calculate_percents);
 
+            function calculate_percents(){
+            const categoryBudgets = [];
+            const table = document.getElementById('tablerows');
+            const rowcount = table.rows.length;
+            const budget_view = document.getElementById('final_budget');
+            budget_view.innerHTML = '';
 
+        for (let i = 1; i <= rowcount; i++) {
+            console.log('rowcount: ' + rowcount);
+            
+            const categoryInput = document.getElementById(`category_${i}`);
+            const percentInput = document.getElementById(`category_percentage_${i}`);
+            console.log('category: ' + categoryInput.value + " Percent: " + percentInput.value);
+            
+
+            if (categoryInput && percentInput) {
+                const category = categoryInput.value;
+                const percentage = parseFloat(percentInput.value);
+
+                console.log(`Row ${i} - Category: ${category}, Percentage: ${percentage}`);
+
+                categoryBudgets.push({
+                    category,
+                    budget: (percentage / 100) * monthlyBudget_adv
+                });
+                
+                
+
+                categoryBudgets.forEach(categoryBudget => {
+                const categoryElement = document.createElement('div');
+                categoryElement.textContent = `${categoryBudget.category}: $${categoryBudget.budget.toFixed(2)}`;
+                budget_view.appendChild(categoryElement);
+            });
+            }
+            
         }
+        
 
     }
+    }
+}
+        
+
+
+
+        
+
 
 
     function budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv){
         const total_adv = document.getElementById('totalamount_budget_adv');
         const budget_adv = document.getElementById("monthly_budgetdisplay_adv");
         const months_left = document.getElementById('months_left');
+        const categoryBudgets = document.getElementById('final_budget');
 
         total_adv.textContent = "Total Budget: $" + totalAmount_adv;
         budget_adv.textContent = "Monthly Budget: $" + monthlyBudget_adv.toFixed(2);
         months_left.textContent = "Months Left: " + numberOfMonths_adv;
 
+
     }
+
+    
 
 
     //ADD ROWS BUTTON
@@ -121,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const addrowsbutton = document.getElementById('addrow').addEventListener('click',addrow);
 
     function addrow(){
-        const table = document.getElementById('table');
+        const table = document.getElementById('tablerows');
 
         if(table.rows.length > 6){
             alert('Maximum amount of rows reached (6)');
@@ -146,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function () {
         inputCategory.id = 'category_' + table.rows.length;
 
         inputPercentage.placeholder = 'Percentage';
-        inputPercentage.id = 'category_percentage_' + table.rows.length -1;
+        inputPercentage.id = 'category_percentage_' + table.rows.length;
 
 
         // Append input elements to the cells
@@ -157,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const deleterowbutton = document.getElementById('deleterow').addEventListener('click',deleterow);
     function deleterow(){
-        const table = document.getElementById('table');
+        const table = document.getElementById('tablerows');
         const rows = table.rows;
 
         // Ensure there is at least one row
