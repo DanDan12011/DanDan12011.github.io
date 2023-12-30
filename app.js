@@ -213,12 +213,43 @@ document.addEventListener("DOMContentLoaded", function () {
         if (rows.length > 1) {
             // Get the index of the last row
             const lastRowIndex = rows.length - 1;
+            const budget_categories = document.getElementById('final_budget');
+            const lastdiv = budget_categories.lastChild;
 
             // Remove the last row
             table.deleteRow(lastRowIndex);
+            if (lastdiv) {
+                budget_categories.removeChild(lastdiv);
+            }
+
         } else {
             alert('Cannot delete the last row. There must be at least one row.');
         }
+    }
+
+    const resetrowsbutton = document.getElementById('resetrows');
+    resetrowsbutton.addEventListener('click',resetrows);
+
+    function resetrows(){
+        const table = document.getElementById('tablerows');
+        const budget_categories = document.getElementById('final_budget');
+
+        while (table.rows.length > 1){
+            table.deleteRow(1);
+        }
+        budget_categories.innerHTML = '';
+
+        let categoryInput = document.getElementById('category_1');
+        let percentInput = document.getElementById('category_percentage_1');
+        categoryInput.value = '';
+        percentInput.value = '';
+        resetrowsbutton.scrollIntoView({behavior: 'instant'});
+
+        
+
+
+
+        
     }
     
 
