@@ -181,5 +181,7 @@ body {
 }
 
 #final_budget div {
-    margin-left: 243px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
