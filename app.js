@@ -4,84 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    //page elements for simple and advanced
-    const simpleview = document.getElementById('simpleview');
-    const advancedview = document.getElementById('advancedview');
-    //simple page turns advanced button inactive
-    const advancedbutton = document.getElementById('advanced_inactive');
-    //adv page sets simple button inactive
-    const simplebutton = document.getElementById('simple_inactive');
-
-    //simple
-    advancedbutton.addEventListener("click",showadvancedview);
-
-    //adv
-    simplebutton.addEventListener("click",showsimpleview);
-
-    function showsimpleview(){
-        simpleview.style.display = 'block';
-        advancedview.style.display = 'none';
-    }
-
-    function showadvancedview() {
-        simpleview.style.display = 'none';
-        advancedview.style.display = 'block';
-    }
-
-    showsimpleview();
-    
-
-    //SIMPLE PAGE
-    // Accessing elements
-    //document.getElementById allows to grab whatevers inside of an id, "totalamount" would take whatever is inside of that input, such as a number
-    
-    const totalAmountInput = document.getElementById("totalamount");
-    const monthsInput = document.getElementById("months");
-
-    
-    
-    // Add event listener so that it listens for an 'input'
-    totalAmountInput.addEventListener('input',calculateBudget);
-    monthsInput.addEventListener('input',calculateBudget);
-    
-    // Function to calculate the budget
-    function calculateBudget() {
-        //.replace (/,/g, '') simply replaces comma with empty space Ex: 2,000 = 2000
-        //parse int / float simply changes a string variable to an int / float Ex: parseInt('123') = 123
-        let totalAmount = parseFloat(totalAmountInput.value.replace(/,/g, ''));
-        let numberOfMonths = parseInt(monthsInput.value);
-
-        // checks to see if total amount and numbers of months are >0 and are real numbers
-        // isNan means isnotanumber, !isNan means isnot not a real number
-        if (!isNaN(totalAmount) && !isNaN(numberOfMonths) && numberOfMonths > 0) {
-            //divides total amount of money by number of months to find a monthyl budget
-            const monthlyBudget = totalAmount / numberOfMonths;
-            
-            //sends monthly budget to budgetdisplay function to display monthly budget
-            budgetdisplay(monthlyBudget);
-
-        }
-        // if, if statement fails, displays all 0's for budgetdisplay
-        else {
-            totalAmount = 0;
-            numberOfMonths = 0;
-            monthlyBudget = 0;
-            budgetdisplay(monthlyBudget);
-        }
-            
-
-    }
-
-
-    function budgetdisplay(monthlyBudget){
-        const budget = document.getElementById("budgetdisplay");
-
-        //puts text into budget, .tofixed(2) rounds to two decimal places Ex: 10.034 = 10.03
-        budget.textContent = "Monthly Budget: $" + monthlyBudget.toFixed(2);
-
-    }
-
-    //ADVANCED PAGE
     // Accessing elements
     //document.getElementById allows to grab whatevers inside of an id, "totalamount" would take whatever is inside of that input, such as a number
     
@@ -125,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const numberOfMonths_adv = parseInt(monthsInput_adv.value);
         const monthlyBudget_adv = totalAmount_adv / numberOfMonths_adv;
         //sets percentage default to 100, since user hasnt inputted percentages yet for budgeting
-        const initial_percentage_pool = 100;
+        const initial_percentage_pool = 0;
         let remaining_percent_pool = initial_percentage_pool;
 
         //empty array for category budgets
@@ -155,9 +77,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 budget: (percentage / 100) * monthlyBudget_adv
             });
 
-            remaining_percent_pool -= percentage;
+            remaining_percent_pool += percentage;
             
-            if(remaining_percent_pool >=0){
+            if(remaining_percent_pool <= 100){
             budget_view.innerHTML = '';
             categoryBudgets.forEach(categoryBudget => {
             const categoryElement = document.createElement('div');
@@ -170,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
     }
     console.log('Percent Remaining %: ' + remaining_percent_pool);
-    if(remaining_percent_pool >= 0){
+    if(remaining_percent_pool <= 100){
     percent_pool_display.textContent = "%: " + remaining_percent_pool;
     }
     else {
@@ -277,7 +199,7 @@ document.addEventListener("DOMContentLoaded", function () {
             table.deleteRow(1);
         }
         budget_categories.innerHTML = '';
-        remaining_percent_pool = 100;
+        remaining_percent_pool = 0;
         percent_pool_display.textContent = "%: " + remaining_percent_pool;
 
 
