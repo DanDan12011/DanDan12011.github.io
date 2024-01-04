@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const totalAmountInput_adv = document.getElementById("totalamount_adv");
     const monthsInput_adv = document.getElementById("months_adv");
     const submitButton_adv = document.getElementById("submit_adv");
+    const percent_pool_display = document.getElementById('percent_pool');
     
     // Adding event listner
     //this allows a function to play when the user inputs something
@@ -93,6 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function calculateBudget_adv() {
         let totalAmount_adv = parseFloat(totalAmountInput_adv.value.replace(/,/g, ''));
         let numberOfMonths_adv = parseInt(monthsInput_adv.value);
+       
 
         if (!isNaN(totalAmount_adv) && !isNaN(numberOfMonths_adv) && numberOfMonths_adv > 0) {
             const monthlyBudget_adv = totalAmount_adv / numberOfMonths_adv;
@@ -108,16 +110,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
 }
 
+
+    
+
     function calculate_percents(){
         // totalAmountInput_adv.value.replace(/,/g, '')); simply replaces a comma with a '' empty space, so if a user inputs 2,000 it turns into 2000
         const totalAmount_adv = parseFloat(totalAmountInput_adv.value.replace(/,/g, ''));
         const numberOfMonths_adv = parseInt(monthsInput_adv.value);
         const monthlyBudget_adv = totalAmount_adv / numberOfMonths_adv;
+        const initial_percentage_pool = 100;
+        let remaining_percent_pool = initial_percentage_pool;
+
         
         const categoryBudgets = [];
         const table = document.getElementById('tablerows');
         const rowcount = table.rows.length;
         const budget_view = document.getElementById('final_budget');
+        
         const rowindex = rowcount;
 
     for (let i = 1; i <= rowcount; i++){
@@ -138,21 +147,31 @@ document.addEventListener("DOMContentLoaded", function () {
                 category,
                 budget: (percentage / 100) * monthlyBudget_adv
             });
+
+            remaining_percent_pool -= percentage;
             
-            
+            if(remaining_percent_pool >=0){
             budget_view.innerHTML = '';
             categoryBudgets.forEach(categoryBudget => {
             const categoryElement = document.createElement('div');
             categoryElement.textContent = `${categoryBudget.category}: $${categoryBudget.budget.toFixed(2)}`;
             budget_view.appendChild(categoryElement);
-        });
+            });
+        }
         }
         
         
     }
-
+    console.log('Percent Remaining %: ' + remaining_percent_pool);
+    if(remaining_percent_pool >= 0){
+    percent_pool_display.textContent = "%: " + remaining_percent_pool;
+    }
+    else {
+        alert ('Cannot Exceed 100% of Budget');
+    }
 
     }
+
         
 
 
@@ -166,7 +185,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const budget_adv = document.getElementById("monthly_budgetdisplay_adv");
         const months_left = document.getElementById('months_left');
         const categoryBudgets = document.getElementById('final_budget');
-        const percent_pool_display = document.getElementById('percent_pool');
 
         total_adv.textContent = "Total Budget: $" + totalAmount_adv;
         budget_adv.textContent = "Monthly Budget: $" + monthlyBudget_adv.toFixed(2);
@@ -252,6 +270,9 @@ document.addEventListener("DOMContentLoaded", function () {
             table.deleteRow(1);
         }
         budget_categories.innerHTML = '';
+        remaining_percent_pool = 100;
+        percent_pool_display.textContent = "%: " + remaining_percent_pool;
+
 
         let categoryInput = document.getElementById('category_1');
         let percentInput = document.getElementById('category_percentage_1');
