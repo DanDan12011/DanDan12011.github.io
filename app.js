@@ -46,16 +46,22 @@ document.addEventListener("DOMContentLoaded", function () {
     
     // Function to calculate the budget
     function calculateBudget() {
+        //.replace (/,/g, '') simply replaces comma with empty space Ex: 2,000 = 2000
+        //parse int / float simply changes a string variable to an int / float Ex: parseInt('123') = 123
         let totalAmount = parseFloat(totalAmountInput.value.replace(/,/g, ''));
         let numberOfMonths = parseInt(monthsInput.value);
 
+        // checks to see if total amount and numbers of months are >0 and are real numbers
+        // isNan means isnotanumber, !isNan means isnot not a real number
         if (!isNaN(totalAmount) && !isNaN(numberOfMonths) && numberOfMonths > 0) {
+            //divides total amount of money by number of months to find a monthyl budget
             const monthlyBudget = totalAmount / numberOfMonths;
             
+            //sends monthly budget to budgetdisplay function to display monthly budget
             budgetdisplay(monthlyBudget);
 
-            // saveToLocalStorage(totalAmount,numberOfMonths)
         }
+        // if, if statement fails, displays all 0's for budgetdisplay
         else {
             totalAmount = 0;
             numberOfMonths = 0;
@@ -70,6 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function budgetdisplay(monthlyBudget){
         const budget = document.getElementById("budgetdisplay");
 
+        //puts text into budget, .tofixed(2) rounds to two decimal places Ex: 10.034 = 10.03
         budget.textContent = "Monthly Budget: $" + monthlyBudget.toFixed(2);
 
     }
@@ -114,14 +121,14 @@ document.addEventListener("DOMContentLoaded", function () {
     
 
     function calculate_percents(){
-        // totalAmountInput_adv.value.replace(/,/g, '')); simply replaces a comma with a '' empty space, so if a user inputs 2,000 it turns into 2000
         const totalAmount_adv = parseFloat(totalAmountInput_adv.value.replace(/,/g, ''));
         const numberOfMonths_adv = parseInt(monthsInput_adv.value);
         const monthlyBudget_adv = totalAmount_adv / numberOfMonths_adv;
+        //sets percentage default to 100, since user hasnt inputted percentages yet for budgeting
         const initial_percentage_pool = 100;
         let remaining_percent_pool = initial_percentage_pool;
 
-        
+        //empty array for category budgets
         const categoryBudgets = [];
         const table = document.getElementById('tablerows');
         const rowcount = table.rows.length;
