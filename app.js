@@ -55,6 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const table = document.getElementById('tablerows');
         const rowcount = table.rows.length;
         const budget_view = document.getElementById('final_budget');
+        const spending_display = document.getElementById('spending_inputs');
         
         const rowindex = rowcount;
 
@@ -80,12 +81,22 @@ document.addEventListener("DOMContentLoaded", function () {
             remaining_percent_pool += percentage;
             
             if(remaining_percent_pool <= 100){
+            spending_display.innerHTML = '';
             budget_view.innerHTML = '';
             categoryBudgets.forEach(categoryBudget => {
             const categoryElement = document.createElement('div');
             categoryElement.textContent = `${categoryBudget.category}: $${categoryBudget.budget.toFixed(2)}`;
+            const spendingInput = document.createElement('input');
+            spendingInput.placeholder = `Spendings for ${categoryBudget.category}`;
+            spending_display.appendChild(spendingInput);
             budget_view.appendChild(categoryElement);
+
+            // Add input under "Spendings" for each category
+            
+
+            
             });
+            
         }
         }
         
@@ -175,12 +186,17 @@ document.addEventListener("DOMContentLoaded", function () {
             // Get the index of the last row
             const lastRowIndex = rows.length - 1;
             const budget_categories = document.getElementById('final_budget');
+            const spending_inputs_rows = document.getElementById('spending_inputs');
             const lastdiv = budget_categories.lastChild;
+            const lastdiv2 = spending_inputs_rows.lastChild;
+            
 
             // Remove the last row
             table.deleteRow(lastRowIndex);
+
             if (lastdiv) {
                 budget_categories.removeChild(lastdiv);
+                spending_inputs_rows.removeChild(lastdiv2);
             }
 
         } else {
@@ -194,11 +210,15 @@ document.addEventListener("DOMContentLoaded", function () {
     function resetrows(){
         const table = document.getElementById('tablerows');
         const budget_categories = document.getElementById('final_budget');
+        const spending_display = document.getElementById('spending_inputs');
+
+        
 
         while (table.rows.length > 1){
             table.deleteRow(1);
         }
         budget_categories.innerHTML = '';
+        spending_display.innerHTML = '';
         remaining_percent_pool = 0;
         percent_pool_display.textContent = "%";
 
