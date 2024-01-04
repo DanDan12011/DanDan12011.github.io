@@ -109,6 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 
     function calculate_percents(){
+        // totalAmountInput_adv.value.replace(/,/g, '')); simply replaces a comma with a '' empty space, so if a user inputs 2,000 it turns into 2000
         const totalAmount_adv = parseFloat(totalAmountInput_adv.value.replace(/,/g, ''));
         const numberOfMonths_adv = parseInt(monthsInput_adv.value);
         const monthlyBudget_adv = totalAmount_adv / numberOfMonths_adv;
@@ -165,10 +166,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const budget_adv = document.getElementById("monthly_budgetdisplay_adv");
         const months_left = document.getElementById('months_left');
         const categoryBudgets = document.getElementById('final_budget');
+        const percent_pool_display = document.getElementById('percent_pool');
 
         total_adv.textContent = "Total Budget: $" + totalAmount_adv;
         budget_adv.textContent = "Monthly Budget: $" + monthlyBudget_adv.toFixed(2);
         months_left.textContent = "Months Left: " + numberOfMonths_adv;
+
 
 
     }

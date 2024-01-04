@@ -88,7 +88,7 @@
             <thead>
                 <tr>
                     <th>Category</th>
-                    <th>%</th>
+                    <th id = 'percent_pool'>%</th>
                 </tr>
             </thead>
             <tbody id = 'tablerows'>
@@ -100,10 +100,12 @@
                 </tr>
             </tbody>
         </table>
-        <button id = 'submit'>Submit</button>
-        <button id = "addrow">Add Row</button>
-        <button id = "deleterow">Delete Row</button>
-        <button id = 'resetrows'>Reset</button>
+        <div id = 'button_container'>
+            <button id = 'submit'>Submit</button>
+            <button id = "addrow">Add Row</button>
+            <button id = "deleterow">Delete Row</button>
+            <button id = 'resetrows'>Reset</button>
+        </div>
     </div>
     <div id = 'budget_header'>Budget Categories</div>
     <div id = 'final_budget'></div>
