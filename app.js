@@ -200,7 +200,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         budget_categories.innerHTML = '';
         remaining_percent_pool = 0;
-        percent_pool_display.textContent = "%: " + remaining_percent_pool;
+        percent_pool_display.textContent = "%";
 
 
         let categoryInput = document.getElementById('category_1');
