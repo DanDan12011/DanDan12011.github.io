@@ -1,6 +1,7 @@
 
 
 /* body affects the entire webpage */
+
 body {
     display: flex;
     align-items: center;
@@ -11,7 +12,6 @@ body {
 
 }
 
-
 /* # is used to call an id, when you use a class to define something you would simple use ".nameofdiv" */
 #container {
     flex-wrap: wrap;
@@ -20,57 +20,15 @@ body {
     align-items: center;
     text-align: center;
     font-size: 14px;
+
 }
 
-#options {
+#container h3 {
     display: flex;
-    padding: 10px,10px;
     align-items: center;
-    margin: 0 auto;
-    justify-content: center;
+    flex-direction: column;
 }
 
-#simple {
-    padding: 10px 20px;
-    border: none;
-    background-color: #227a10;
-    color: #fff;
-    cursor: pointer;
-}
-
-#simple_inactive {
-    padding: 10px 20px;
-    border: none;
-    background-color: #b33323;
-    color: #fff;
-    cursor: pointer;
-}
-
-
-#advanced {
-    padding: 10px 20px;
-    border: none;
-    background-color: #227a10;
-    color: #fff;
-    cursor: pointer;
-}
-
-#advanced_inactive {
-    padding: 10px 20px;
-    border: none;
-    background-color: #b33323;
-    color: #fff;
-    cursor: pointer;
-}
-
-#totalamount-container {
-    margin-left: 50px;
-}
-
-
-#space {
-    margin-bottom: 20px;
-}
 
 #budgetdisplay {
     font-size: 25px;
@@ -92,6 +50,8 @@ body {
     align-items: center;
     background-color: #227a10;
     color: #fff;
+    margin-top: 10px;
+    border-radius: 5px;
 }
 
 #monthly_budgetdisplay_adv{
@@ -101,11 +61,14 @@ body {
 #table_container {
     display: table;
     align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
     background-color: #61bd4e;
     padding: 10px 10px;
     border-radius: 5px;
-    margin: auto;
-    margin-top: 25px;
+    
+
 }
 
 #table th{
@@ -181,13 +144,13 @@ body {
     align-items:center;
     background-color: #243baa;
     color: #fff;
+    border-radius: 5px;
 }
 #final_budget {
     font-weight: 350;
     font-size: 25px;
     display: flex;
     flex-direction: column;
-    background-color: #243baa;
     color: #fff;
 }
 
