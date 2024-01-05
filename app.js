@@ -86,16 +86,17 @@ document.addEventListener("DOMContentLoaded", function () {
             categoryBudgets.forEach(categoryBudget => {
             const categoryElement = document.createElement('div');
             categoryElement.textContent = `${categoryBudget.category}: $${categoryBudget.budget.toFixed(2)}`;
+            categoryElement.id = `div_${categoryBudget.category}`;
             const spendingInput = document.createElement('input');
             spendingInput.placeholder = `Spendings for ${categoryBudget.category}`;
+            spendingInput.id = `input_for_${categoryBudget.category}`;
             spending_display.appendChild(spendingInput);
             budget_view.appendChild(categoryElement);
-
-            // Add input under "Spendings" for each category
             
 
             
             });
+            
             
         }
         }
@@ -111,6 +112,44 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     }
+
+    
+    const submit_spending_button = document.getElementById('submit_spendings');
+    submit_spending_button.addEventListener('click', submitSpendings);
+
+    function submitSpendings() {
+        const spendingList = document.getElementById('spending_inputs');
+        const spendingInputs = spendingList.querySelectorAll('[id^="input_for_"]');
+        const budgetView = document.getElementById('final_budget');
+
+        spendingInputs.forEach(spendingInput => {
+            const categoryId = spendingInput.id.replace('input_for_', ''); // Extract category ID
+            const categoryBudgetElement = document.getElementById(`div_${categoryId}`);
+            
+            // Check if the corresponding budget element exists
+            if (categoryBudgetElement) {
+                const categoryBudget = parseFloat(categoryBudgetElement.textContent.replace(/[^\d.-]/g, '')); // Extract budget amount
+                const spendingAmount = parseFloat(spendingInput.value.replace(/,/g, ''));
+
+                // Check if the spending amount is a valid number
+                if (!isNaN(spendingAmount)) {
+                    const newBudget = categoryBudget - spendingAmount;
+                    categoryBudgetElement.textContent = `${categoryId}: $${newBudget.toFixed(2)}`;
+                    spendingInput.value = '';
+                }
+            }
+        });
+    }
+
+    const reset_spending_button = document.getElementById('reset_spendings');
+    reset_spending_button.addEventListener('click', resetspendings);
+
+    function resetspendings(){
+        calculate_percents();
+    }
+
+
+    
 
         
 
@@ -133,6 +172,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     }
+
+    
 
     
 

@@ -179,3 +179,35 @@ body {
     align-items: center;
     flex-direction: column;
 }
+
+#Budget_options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+
+#reset_spendings, #submit_spendings, #next_month {
+    flex: 1;
+}
+
+#reset_spendings {
+    background-color: #bcb41c;
+    color: #fff;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+#submit_spendings {
+    background-color: #227a10;
+    color: #fff;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+#next_month {
+    background-color: #415de8;
+    color: #fff;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
