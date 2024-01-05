@@ -116,6 +116,11 @@ document.addEventListener("DOMContentLoaded", function () {
     
     const submit_spending_button = document.getElementById('submit_spendings');
     submit_spending_button.addEventListener('click', submitSpendings);
+    let spendingAmount = 0;
+    let spendingAmount_total = 0;
+    
+
+    
 
     function submitSpendings() {
         const spendingList = document.getElementById('spending_inputs');
@@ -129,14 +134,21 @@ document.addEventListener("DOMContentLoaded", function () {
             // Check if the corresponding budget element exists
             if (categoryBudgetElement) {
                 const categoryBudget = parseFloat(categoryBudgetElement.textContent.replace(/[^\d.-]/g, '')); // Extract budget amount
-                const spendingAmount = parseFloat(spendingInput.value.replace(/,/g, ''));
+                
+                
 
-                // Check if the spending amount is a valid number
-                if (!isNaN(spendingAmount)) {
-                    const newBudget = categoryBudget - spendingAmount;
-                    categoryBudgetElement.textContent = `${categoryId}: $${newBudget.toFixed(2)}`;
-                    spendingInput.value = '';
+                if(spendingInput.value.trim() !== ''){
+                    spendingAmount = parseFloat(spendingInput.value.replace(/,/g, ''));
+                    spendingAmount_total += spendingAmount;
                 }
+
+                calculateBudget_adv();
+                const newBudget = categoryBudget - spendingAmount;
+                console.log('spendingamount: ' + spendingAmount_total);
+                categoryBudgetElement.textContent = `${categoryId}: $${newBudget.toFixed(2)}`;
+                spendingInput.value = '';
+                spendingAmount = 0;
+                
             }
         });
     }
@@ -145,9 +157,20 @@ document.addEventListener("DOMContentLoaded", function () {
     reset_spending_button.addEventListener('click', resetspendings);
 
     function resetspendings(){
+        spendingAmount_total = 0;
+        calculateBudget_adv();
         calculate_percents();
     }
 
+
+
+    const next_month_button = document.getElementById('next_month');
+    next_month_button.addEventListener('click',nextmonth);
+
+    function nextmonth(){
+
+
+    }
 
     
 
@@ -158,15 +181,18 @@ document.addEventListener("DOMContentLoaded", function () {
         
 
 
-
     function budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv){
         const total_adv = document.getElementById('totalamount_budget_adv');
         const budget_adv = document.getElementById("monthly_budgetdisplay_adv");
         const months_left = document.getElementById('months_left');
         const categoryBudgets = document.getElementById('final_budget');
+        
+        console.log('monthlybudg: ' + monthlyBudget_adv + ' spendings: ' + spendingAmount_total);
+        const updatedmonthly_budg = monthlyBudget_adv -= spendingAmount_total;
+        console.log('new monthly budget: ' + updatedmonthly_budg);
 
         total_adv.textContent = "Total Budget: $" + totalAmount_adv;
-        budget_adv.textContent = "Monthly Budget: $" + monthlyBudget_adv.toFixed(2);
+        budget_adv.textContent = "Monthly Budget: $" + updatedmonthly_budg.toFixed(2);
         months_left.textContent = "Months Left: " + numberOfMonths_adv;
 
 
