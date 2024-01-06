@@ -18,15 +18,18 @@ document.addEventListener("DOMContentLoaded", function () {
     monthsInput_adv.addEventListener('input',calculateBudget_adv);
     const submit_btn = document.getElementById('submit');
     submit_btn.addEventListener('click',calculate_percents);
+    let totalAmount_adv = 0;
+    let numberOfMonths_adv = 0;
+    let monthlyBudget_adv = 0;
+    
 
     // Function to calculate the budget
     function calculateBudget_adv() {
-        let totalAmount_adv = parseFloat(totalAmountInput_adv.value.replace(/,/g, ''));
-        let numberOfMonths_adv = parseInt(monthsInput_adv.value);
-       
+        totalAmount_adv = parseFloat(totalAmountInput_adv.value.replace(/,/g, ''));
+        numberOfMonths_adv = parseInt(monthsInput_adv.value);
 
         if (!isNaN(totalAmount_adv) && !isNaN(numberOfMonths_adv) && numberOfMonths_adv > 0) {
-            const monthlyBudget_adv = totalAmount_adv / numberOfMonths_adv;
+            monthlyBudget_adv = totalAmount_adv / numberOfMonths_adv;
             
             budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv);
             
@@ -43,9 +46,9 @@ document.addEventListener("DOMContentLoaded", function () {
     
 
     function calculate_percents(){
-        const totalAmount_adv = parseFloat(totalAmountInput_adv.value.replace(/,/g, ''));
-        const numberOfMonths_adv = parseInt(monthsInput_adv.value);
-        const monthlyBudget_adv = totalAmount_adv / numberOfMonths_adv;
+        // totalAmount_adv = parseFloat(totalAmountInput_adv.value.replace(/,/g, ''));
+        // numberOfMonths_adv = parseInt(monthsInput_adv.value);
+        monthlyBudget_adv = totalAmount_adv / numberOfMonths_adv;
         //sets percentage default to 100, since user hasnt inputted percentages yet for budgeting
         const initial_percentage_pool = 0;
         let remaining_percent_pool = initial_percentage_pool;
@@ -142,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     spendingAmount_total += spendingAmount;
                 }
 
-                calculateBudget_adv();
+                budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv);
                 const newBudget = categoryBudget - spendingAmount;
                 console.log('spendingamount: ' + spendingAmount_total);
                 categoryBudgetElement.textContent = `${categoryId}: $${newBudget.toFixed(2)}`;
@@ -158,7 +161,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function resetspendings(){
         spendingAmount_total = 0;
-        calculateBudget_adv();
+        // calculateBudget_adv();
+        budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv);
         calculate_percents();
     }
 
@@ -168,7 +172,21 @@ document.addEventListener("DOMContentLoaded", function () {
     next_month_button.addEventListener('click',nextmonth);
 
     function nextmonth(){
-
+        if (numberOfMonths_adv <= 1) {
+            numberOfMonths_adv = 0;
+            alert('Last month reached');
+        }
+        else {
+            totalAmount_adv = totalAmount_adv - spendingAmount_total;
+            numberOfMonths_adv -= 1;
+            spendingAmount_total = 0;
+            console.log('total: ' + totalAmount_adv);
+            console.log('months: ' + numberOfMonths_adv);
+            budgetdisplay_adv(totalAmount_adv,monthlyBudget_adv,numberOfMonths_adv);
+            resetspendings();
+        
+        }
+        
 
     }
 
@@ -191,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const updatedmonthly_budg = monthlyBudget_adv -= spendingAmount_total;
         console.log('new monthly budget: ' + updatedmonthly_budg);
 
-        total_adv.textContent = "Total Budget: $" + totalAmount_adv;
+        total_adv.textContent = "Total Budget: $" + totalAmount_adv.toFixed(2);
         budget_adv.textContent = "Monthly Budget: $" + updatedmonthly_budg.toFixed(2);
         months_left.textContent = "Months Left: " + numberOfMonths_adv;
 
@@ -294,12 +312,13 @@ document.addEventListener("DOMContentLoaded", function () {
         let percentInput = document.getElementById('category_percentage_1');
         let totalAmount_adv = document.getElementById('totalamount_adv');
         let numberOfMonths_adv = document.getElementById('months_adv');
-        let monthlyBudget_adv;
         categoryInput.value = '';
         percentInput.value = '';
         totalAmount_adv.value = '';
         numberOfMonths_adv.value = '';
+        monthlyBudget_adv.value = '';
         
+        spendingAmount_total = 0;
         totalAmount_adv = 0;
         numberOfMonths_adv = 0;
         monthlyBudget_adv = 0;

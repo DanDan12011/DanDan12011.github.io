@@ -188,6 +188,7 @@ body {
 
 #reset_spendings, #submit_spendings, #next_month {
     flex: 1;
+    cursor: pointer;
 }
 
 #reset_spendings {
