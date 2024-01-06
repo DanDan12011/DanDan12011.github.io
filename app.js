@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let totalAmount_adv = 0;
     let numberOfMonths_adv = 0;
     let monthlyBudget_adv = 0;
+    let spendingAmount = 0;
+    let spendingAmount_total = 0;
     
 
     // Function to calculate the budget
@@ -88,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
             budget_view.innerHTML = '';
             categoryBudgets.forEach(categoryBudget => {
             const categoryElement = document.createElement('div');
-            categoryElement.textContent = `${categoryBudget.category}: $${categoryBudget.budget.toFixed(2)}`;
+            categoryElement.textContent = `${categoryBudget.category}: $${(categoryBudget.budget.toFixed(2))}`;
             categoryElement.id = `div_${categoryBudget.category}`;
             const spendingInput = document.createElement('input');
             spendingInput.placeholder = `Spendings for ${categoryBudget.category}`;
@@ -119,8 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
     const submit_spending_button = document.getElementById('submit_spendings');
     submit_spending_button.addEventListener('click', submitSpendings);
-    let spendingAmount = 0;
-    let spendingAmount_total = 0;
+    
     
 
     
@@ -263,6 +264,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const deleterowbutton = document.getElementById('deleterow').addEventListener('click',deleterow);
     function deleterow(){
+        
         const table = document.getElementById('tablerows');
         const rows = table.rows;
 
@@ -283,7 +285,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 budget_categories.removeChild(lastdiv);
                 spending_inputs_rows.removeChild(lastdiv2);
             }
-
+            
+            calculate_percents();
+            resetspendings();
         } else {
             alert('Cannot delete the last row. There must be at least one row.');
         }
@@ -317,7 +321,7 @@ document.addEventListener("DOMContentLoaded", function () {
         totalAmount_adv.value = '';
         numberOfMonths_adv.value = '';
         monthlyBudget_adv.value = '';
-        
+
         spendingAmount_total = 0;
         totalAmount_adv = 0;
         numberOfMonths_adv = 0;
