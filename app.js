@@ -162,7 +162,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function resetspendings(){
         spendingAmount_total = 0;
-        // calculateBudget_adv();
         budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv);
         calculate_percents();
     }
@@ -210,11 +209,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const updatedmonthly_budg = monthlyBudget_adv -= spendingAmount_total;
         console.log('new monthly budget: ' + updatedmonthly_budg);
 
-        total_adv.textContent = "Total Budget: $" + totalAmount_adv.toFixed(2);
-        budget_adv.textContent = "Monthly Budget: $" + updatedmonthly_budg.toFixed(2);
-        months_left.textContent = "Months Left: " + numberOfMonths_adv;
+        if(!isNaN(monthlyBudget_adv)){
+            total_adv.textContent = "Total Budget: $" + totalAmount_adv.toFixed(2);
+            budget_adv.textContent = "Monthly Budget: $" + updatedmonthly_budg.toFixed(2);
+            months_left.textContent = "Months Left: " + numberOfMonths_adv;
 
-
+        }
 
     }
 
@@ -336,6 +336,28 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     
 
+
+    // const save_button = document.getElementById('save');
+    // save_button.addEventListener('click',saveData);
+
+    // function saveData(){
+    //     localStorage.setItem('totalAmount_adv', totalAmount_adv);
+    //     localStorage.setItem('numberOfMonths_adv', numberOfMonths_adv);
+    //     localStorage.setItem('monthlyBudget_adv', monthlyBudget_adv);
+        
+
+    // }
+
+    // const load_button = document.getElementById('load');
+    // load_button.addEventListener('click',loadData);
+
+    // function loadData(){
+    //     totalAmount_adv = parseFloat(localStorage.getItem('totalAmount_adv')) || 0;
+    //     numberOfMonths_adv = parseInt(localStorage.getItem('numberOfMonths_adv')) || 0;
+    //     monthlyBudget_adv = parseInt(localStorage.getItem('monthlyBudget_adv')) || 0;
+
+    //     console.log('LOADED DATA: ' + 'totalAmount_adv = ' + totalAmount_adv + ' numberofMonths_adv = ' + numberOfMonths_adv + ' monthlyBudget_adv = ' + monthlyBudget_adv);
+    // }
 
 
     

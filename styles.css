@@ -101,12 +101,14 @@ body {
     
 }
 
-#addrow {
+
+#add_delete {
     display: flex;
-    align-items: center;
-    margin: 0 auto;
+}
+#addrow{
+    display: flex;
     border-radius: 5px;
-    padding: 10px 159px;
+    padding: 10px 63px;
     background-color: #227a10;
     color: #fff;
     cursor: pointer;
@@ -115,10 +117,8 @@ body {
 
 #deleterow {
     display: flex;
-    align-items: center;
-    margin: 0 auto;
     border-radius: 5px;
-    padding: 10px 152px;
+    padding: 10px 60px;
     background-color: #b33323;
     color: #fff;
     cursor: pointer;
