@@ -24,6 +24,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let monthlyBudget_adv = 0;
     let spendingAmount = 0;
     let spendingAmount_total = 0;
+    let saved_cat_budget = [];
+    
     
     loadData();
 
@@ -51,18 +53,18 @@ document.addEventListener("DOMContentLoaded", function () {
    
     
     
-
+    
     function calculate_percents(){
         
         const initial_percentage_pool = 0;
         let remaining_percent_pool = initial_percentage_pool;
     
         //empty array for category budgets
-        let categoryBudgets = [];
         const table = document.getElementById('tablerows');
         const rowcount = table.rows.length;
         const budget_view = document.getElementById('final_budget');
         const spending_display = document.getElementById('spending_inputs');
+        const categoryBudgets = [];
     
         const rowindex = rowcount;
 
@@ -83,6 +85,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 categoryBudgets.push({
                     category,
                     budget: (percentage / 100) * monthlyBudget_adv
+                });
+
+                saved_cat_budget.push({
+                    category,
+                    percentage
                 });
 
                 remaining_percent_pool += percentage;
@@ -226,6 +233,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //ADD ROWS BUTTON
 
     const addrowsbutton = document.getElementById('addrow').addEventListener('click',addrow);
+    
 
     function addrow(){
         const table = document.getElementById('tablerows');
@@ -339,15 +347,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const save_button = document.getElementById('save');
     save_button.addEventListener('click',saveData);
+    
 
     function saveData(){
-        localStorage.setItem('totalAmount_adv', totalAmount_adv);
+        const table = document.getElementById('tablerows');
+        const rowcount = table.rows.length;
+        localStorage.setItem('totalAmount_adv', totalAmountInput_adv.value);
         localStorage.setItem('numberOfMonths_adv', numberOfMonths_adv);
         localStorage.setItem('monthlyBudget_adv', monthlyBudget_adv);
-        console.log('SAVED DATA: ' + 'totalAmount_adv = ' + totalAmount_adv + ' numberofMonths_adv = ' + numberOfMonths_adv + ' monthlyBudget_adv = ' + monthlyBudget_adv);
+        localStorage.setItem('saved_cat_budget', JSON.stringify(saved_cat_budget));
+        localStorage.setItem('table_row_length',rowcount);
 
+        console.log('SAVED DATA: ' + 'totalAmount_adv = ' + totalAmount_adv + ' numberofMonths_adv = ' + numberOfMonths_adv + ' monthlyBudget_adv = ' + monthlyBudget_adv + ' budget ' + JSON.stringify(saved_cat_budget));
         alert('Saved Budget');
-        
+
 
     }
 
@@ -358,10 +371,29 @@ document.addEventListener("DOMContentLoaded", function () {
         totalAmount_adv = parseFloat(localStorage.getItem('totalAmount_adv')) || 0;
         numberOfMonths_adv = parseInt(localStorage.getItem('numberOfMonths_adv')) || 0;
         monthlyBudget_adv = parseInt(localStorage.getItem('monthlyBudget_adv')) || 0;
+        saved_cat_budget = JSON.parse(localStorage.getItem('saved_cat_budget')) || [];
+        const rowcount = localStorage.getItem('table_row_length');
+
+        for (let i = 1; i < rowcount; i++){
+            addrow();
+        }
+
+        for (let i = 0; i < rowcount; i++){
+            const categoryInput = document.getElementById(`category_${i+1}`);
+            const percentInput = document.getElementById(`category_percentage_${i+1}`);
+            categoryInput.value = saved_cat_budget[i].category;
+            percentInput.value = saved_cat_budget[i].percentage;
+            
+            console.log('LOADED: ' + categoryInput.value + ':' + percentInput.value + 'row: ' + i);
+
+        }
+
         totalAmountInput_adv.value = totalAmount_adv;
         monthsInput_adv.value = numberOfMonths_adv;
         calculateBudget_adv();
-        console.log('LOADED DATA: ' + 'totalAmount_adv = ' + totalAmount_adv + ' numberofMonths_adv = ' + numberOfMonths_adv + ' monthlyBudget_adv = ' + monthlyBudget_adv);
+        calculate_percents();
+        console.log('LOADED DATA: ' + ' Tot: ' + totalAmount_adv + ' Months: ' + numberOfMonths_adv + ' month budg: ' + monthlyBudget_adv + ' saved_cats: ' + saved_cat_budget );
+        saved_cat_budget = [];
     }
 
 
