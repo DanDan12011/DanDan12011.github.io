@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 }
 
-
+    
     
 
     function calculate_percents(){
@@ -337,27 +337,29 @@ document.addEventListener("DOMContentLoaded", function () {
     
 
 
-    // const save_button = document.getElementById('save');
-    // save_button.addEventListener('click',saveData);
+    const save_button = document.getElementById('save');
+    save_button.addEventListener('click',saveData);
 
-    // function saveData(){
-    //     localStorage.setItem('totalAmount_adv', totalAmount_adv);
-    //     localStorage.setItem('numberOfMonths_adv', numberOfMonths_adv);
-    //     localStorage.setItem('monthlyBudget_adv', monthlyBudget_adv);
+    function saveData(){
+        localStorage.setItem('totalAmount_adv', totalAmount_adv);
+        localStorage.setItem('numberOfMonths_adv', numberOfMonths_adv);
+        localStorage.setItem('monthlyBudget_adv', monthlyBudget_adv);
+        alert('Saved Budget');
         
 
-    // }
+    }
 
-    // const load_button = document.getElementById('load');
-    // load_button.addEventListener('click',loadData);
+    const load_button = document.getElementById('load');
+    load_button.addEventListener('click',loadData);
 
-    // function loadData(){
-    //     totalAmount_adv = parseFloat(localStorage.getItem('totalAmount_adv')) || 0;
-    //     numberOfMonths_adv = parseInt(localStorage.getItem('numberOfMonths_adv')) || 0;
-    //     monthlyBudget_adv = parseInt(localStorage.getItem('monthlyBudget_adv')) || 0;
+    function loadData(){
+        totalAmount_adv = parseFloat(localStorage.getItem('totalAmount_adv')) || 0;
+        numberOfMonths_adv = parseInt(localStorage.getItem('numberOfMonths_adv')) || 0;
+        monthlyBudget_adv = parseInt(localStorage.getItem('monthlyBudget_adv')) || 0;
+        calculateBudget_adv();
 
-    //     console.log('LOADED DATA: ' + 'totalAmount_adv = ' + totalAmount_adv + ' numberofMonths_adv = ' + numberOfMonths_adv + ' monthlyBudget_adv = ' + monthlyBudget_adv);
-    // }
+        console.log('LOADED DATA: ' + 'totalAmount_adv = ' + totalAmount_adv + ' numberofMonths_adv = ' + numberOfMonths_adv + ' monthlyBudget_adv = ' + monthlyBudget_adv);
+    }
 
 
     

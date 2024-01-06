@@ -13,6 +13,29 @@ body {
 }
 
 /* # is used to call an id, when you use a class to define something you would simple use ".nameofdiv" */
+
+#save_load{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#save {
+    padding: 10px 10px;
+    border-radius: 5px;
+    background-color: #ede87b;
+    color: #000000;
+    font-weight: 600;
+}
+
+#load {
+    padding: 10px 10px;
+    border-radius: 5px;
+    background-color: #68e759;
+    color: #000000;
+    font-weight: 600;
+}
+
 #container {
     flex-wrap: wrap;
     display: flex;
