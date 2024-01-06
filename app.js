@@ -1,6 +1,7 @@
 
 // This simply waits until the webpage is fully loaded to start the code
 document.addEventListener("DOMContentLoaded", function () {
+    
 
 
 
@@ -10,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const totalAmountInput_adv = document.getElementById("totalamount_adv");
     const monthsInput_adv = document.getElementById("months_adv");
     const submitButton_adv = document.getElementById("submit_adv");
-    const percent_pool_display = document.getElementById('percent_pool');
+    let percent_pool_display = document.getElementById('percent_pool');
     
     // Adding event listner
     //this allows a function to play when the user inputs something
@@ -24,9 +25,11 @@ document.addEventListener("DOMContentLoaded", function () {
     let spendingAmount = 0;
     let spendingAmount_total = 0;
     
+    loadData();
 
     // Function to calculate the budget
     function calculateBudget_adv() {
+
         totalAmount_adv = parseFloat(totalAmountInput_adv.value.replace(/,/g, ''));
         numberOfMonths_adv = parseInt(monthsInput_adv.value);
 
@@ -35,86 +38,83 @@ document.addEventListener("DOMContentLoaded", function () {
             
             budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv);
             
-    } else {
-        totalAmount_adv = 0;
-        numberOfMonths_adv = 0;
-        monthlyBudget_adv = 0;
-        budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv);
-    }
+        } else {
+            totalAmount_adv = 0;
+            numberOfMonths_adv = 0;
+            monthlyBudget_adv = 0;
+            budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv);
+        }
 
 }
 
+
+   
     
     
 
     function calculate_percents(){
-        // totalAmount_adv = parseFloat(totalAmountInput_adv.value.replace(/,/g, ''));
-        // numberOfMonths_adv = parseInt(monthsInput_adv.value);
-        monthlyBudget_adv = totalAmount_adv / numberOfMonths_adv;
-        //sets percentage default to 100, since user hasnt inputted percentages yet for budgeting
+        
         const initial_percentage_pool = 0;
         let remaining_percent_pool = initial_percentage_pool;
-
+    
         //empty array for category budgets
-        const categoryBudgets = [];
+        let categoryBudgets = [];
         const table = document.getElementById('tablerows');
         const rowcount = table.rows.length;
         const budget_view = document.getElementById('final_budget');
         const spending_display = document.getElementById('spending_inputs');
-        
+    
         const rowindex = rowcount;
 
-    for (let i = 1; i <= rowcount; i++){
-        console.log('rowcount: ' + rowcount);
-        
-        const categoryInput = document.getElementById(`category_${i}`);
-        const percentInput = document.getElementById(`category_percentage_${i}`);
-        console.log('category: ' + categoryInput.value + " Percent: " + percentInput.value);
-        
-
-        if (categoryInput && percentInput && categoryInput.value.trim() !== '' && percentInput.value.trim() !== '' && !isNaN(monthlyBudget_adv)) {
-            const category = categoryInput.value;
-            const percentage = parseFloat(percentInput.value);
-
-            console.log(`Row ${i} - Category: ${category}, Percentage: ${percentage}`);
-
-            categoryBudgets.push({
-                category,
-                budget: (percentage / 100) * monthlyBudget_adv
-            });
-
-            remaining_percent_pool += percentage;
+        for (let i = 1; i <= rowcount; i++){
+            console.log('rowcount: ' + rowcount);
             
-            if(remaining_percent_pool <= 100){
-            spending_display.innerHTML = '';
-            budget_view.innerHTML = '';
-            categoryBudgets.forEach(categoryBudget => {
-            const categoryElement = document.createElement('div');
-            categoryElement.textContent = `${categoryBudget.category}: $${(categoryBudget.budget.toFixed(2))}`;
-            categoryElement.id = `div_${categoryBudget.category}`;
-            const spendingInput = document.createElement('input');
-            spendingInput.placeholder = `Spendings for ${categoryBudget.category}`;
-            spendingInput.id = `input_for_${categoryBudget.category}`;
-            spending_display.appendChild(spendingInput);
-            budget_view.appendChild(categoryElement);
+            const categoryInput = document.getElementById(`category_${i}`);
+            const percentInput = document.getElementById(`category_percentage_${i}`);
+            console.log('category: ' + categoryInput.value + " Percent: " + percentInput.value);
             
 
-            
-            });
+            if (categoryInput && percentInput && categoryInput.value.trim() !== '' && percentInput.value.trim() !== '' && !isNaN(monthlyBudget_adv)) {
+                const category = categoryInput.value;
+                const percentage = parseFloat(percentInput.value);
+
+                console.log(`Row ${i} - Category: ${category}, Percentage: ${percentage}`);
+
+                categoryBudgets.push({
+                    category,
+                    budget: (percentage / 100) * monthlyBudget_adv
+                });
+
+                remaining_percent_pool += percentage;
+                
+                if(remaining_percent_pool <= 100){
+                    spending_display.innerHTML = '';
+                    budget_view.innerHTML = '';
+                    categoryBudgets.forEach(categoryBudget => {
+                        const categoryElement = document.createElement('div');
+                        categoryElement.textContent = `${categoryBudget.category}: $${(categoryBudget.budget.toFixed(2))}`;
+                        categoryElement.id = `div_${categoryBudget.category}`;
+                        const spendingInput = document.createElement('input');
+                        spendingInput.placeholder = `Spendings for ${categoryBudget.category}`;
+                        spendingInput.id = `input_for_${categoryBudget.category}`;
+                        spending_display.appendChild(spendingInput);
+                        budget_view.appendChild(categoryElement);
+                });
+                
+                
+            }
+            }
             
             
         }
+        console.log('Percent Remaining %: ' + remaining_percent_pool);
+
+        if(remaining_percent_pool <= 100){
+            percent_pool_display.textContent = "%: " + remaining_percent_pool;
         }
-        
-        
-    }
-    console.log('Percent Remaining %: ' + remaining_percent_pool);
-    if(remaining_percent_pool <= 100){
-    percent_pool_display.textContent = "%: " + remaining_percent_pool;
-    }
-    else {
-        alert ('Cannot Exceed 100% of Budget');
-    }
+        else {
+            alert ('Cannot Exceed 100% of Budget');
+        }
 
     }
 
@@ -344,6 +344,8 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem('totalAmount_adv', totalAmount_adv);
         localStorage.setItem('numberOfMonths_adv', numberOfMonths_adv);
         localStorage.setItem('monthlyBudget_adv', monthlyBudget_adv);
+        console.log('SAVED DATA: ' + 'totalAmount_adv = ' + totalAmount_adv + ' numberofMonths_adv = ' + numberOfMonths_adv + ' monthlyBudget_adv = ' + monthlyBudget_adv);
+
         alert('Saved Budget');
         
 
@@ -356,8 +358,9 @@ document.addEventListener("DOMContentLoaded", function () {
         totalAmount_adv = parseFloat(localStorage.getItem('totalAmount_adv')) || 0;
         numberOfMonths_adv = parseInt(localStorage.getItem('numberOfMonths_adv')) || 0;
         monthlyBudget_adv = parseInt(localStorage.getItem('monthlyBudget_adv')) || 0;
+        totalAmountInput_adv.value = totalAmount_adv;
+        monthsInput_adv.value = numberOfMonths_adv;
         calculateBudget_adv();
-
         console.log('LOADED DATA: ' + 'totalAmount_adv = ' + totalAmount_adv + ' numberofMonths_adv = ' + numberOfMonths_adv + ' monthlyBudget_adv = ' + monthlyBudget_adv);
     }
 
