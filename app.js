@@ -27,9 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let saved_cat_budget = [];
     let months_left_num = 0;
     
-    
-    
-
     // Function to calculate the budget
     function calculateBudget_adv() {
 
@@ -50,9 +47,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 }
 
-
-   
-    
     let categoryBudgets = [];
     
     function calculate_percents(){
@@ -111,13 +105,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         spendingInput.id = `input_for_${categoryBudget.category}`;
                         spending_display.appendChild(spendingInput);
                         budget_view.appendChild(categoryElement);
-                });
-                
-                
+                });   
             }
             }
-            
-            
         }
         console.log('Percent Remaining %: ' + remaining_percent_pool);
 
@@ -130,14 +120,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
-    
     const submit_spending_button = document.getElementById('submit_spendings');
     submit_spending_button.addEventListener('click', submitSpendings);
     
-    
-
-    
-
     function submitSpendings() {
         const spendingList = document.getElementById('spending_inputs');
         const spendingInputs = spendingList.querySelectorAll('[id^="input_for_"]');
@@ -167,7 +152,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 categoryBudgetElement.textContent = `${categoryId}: $${newBudget.toFixed(2)}`;
                 spendingInput.value = '';
                 spendingAmount = 0;
-                
             }
         });
     }
@@ -181,8 +165,6 @@ document.addEventListener("DOMContentLoaded", function () {
         calculate_percents();
     }
 
-
-    
     const next_month_button = document.getElementById('next_month');
     next_month_button.addEventListener('click',nextmonth);
     function nextmonth(){
@@ -205,15 +187,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
-    
-
-        
-
-
-
-        
-    
-
     function budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv){
         const total_adv = document.getElementById('totalamount_budget_adv');
         const budget_adv = document.getElementById("monthly_budgetdisplay_adv");
@@ -228,21 +201,13 @@ document.addEventListener("DOMContentLoaded", function () {
             total_adv.textContent = "Total Budget: $" + (totalAmount_adv - spendingAmount_total).toFixed(2);
             budget_adv.textContent = "Monthly Budget: $" + updatedmonthly_budg.toFixed(2);
             months_left.textContent = "Months Left: " + (numberOfMonths_adv - months_left_num);
-
         }
-
     }
-
-    
-
-    
-
 
     //ADD ROWS BUTTON
 
     const addrowsbutton = document.getElementById('addrow').addEventListener('click',addrow);
     
-
     function addrow(){
         const table = document.getElementById('tablerows');
 
@@ -251,7 +216,6 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
     
-
         // Create a new row
         const newRow = table.insertRow();
         newRow.id = 'row_' + table.rows.length;
@@ -434,7 +398,5 @@ document.addEventListener("DOMContentLoaded", function () {
         alert('Saves Reset');
     }
 
-
-    
     loadData();
 });
