@@ -18,6 +18,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    
 }
 
 #save {
@@ -26,6 +27,7 @@ body {
     background-color: #ede87b;
     color: #000000;
     font-weight: 600;
+    cursor: pointer;
 }
 
 #load {
@@ -34,6 +36,7 @@ body {
     background-color: #68e759;
     color: #000000;
     font-weight: 600;
+    cursor: pointer;
 }
 
 #container {
