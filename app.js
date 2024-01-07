@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if(spendingInput.value.trim() !== ''){
                     spendingAmount = parseFloat(spendingInput.value.replace(/,/g, ''));
-                    spendingAmount_total += spendingAmount;
+                    spendingAmount_total = spendingAmount_total + spendingAmount;
                     console.log('SUBMIT SPENDING');
                     console.log('spendingamount_total: ' + spendingAmount_total + ' spendingamount: ' + spendingAmount);
                 }
@@ -388,7 +388,7 @@ document.addEventListener("DOMContentLoaded", function () {
         numberOfMonths_adv = parseInt(localStorage.getItem('numberOfMonths_adv')) || 0;
         monthlyBudget_adv = parseInt(localStorage.getItem('monthlyBudget_adv')) || 0;
         saved_cat_budget = JSON.parse(localStorage.getItem('saved_cat_budget')) || [];
-        spendingAmount_total = localStorage.getItem('money_spent') || 0;
+        spendingAmount_total = parseInt(localStorage.getItem('money_spent')) || 0;
         months_left_num = localStorage.getItem('months_left_num') || 0;
         const rowcount = localStorage.getItem('table_row_length');
 
