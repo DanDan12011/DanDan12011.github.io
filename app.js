@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let updated_total_amount = 0;
     
     
-    loadData();
+    
 
     // Function to calculate the budget
     function calculateBudget_adv() {
@@ -176,11 +176,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-
+    
     const next_month_button = document.getElementById('next_month');
     next_month_button.addEventListener('click',nextmonth);
     function nextmonth(){
-        if (numberOfMonths_adv <= 1) {
+        if ((numberOfMonths_adv - months_left_num) <= 1) {
+            months_left_num = 0;
             numberOfMonths_adv = 0;
             alert('Last month reached');
         }
@@ -403,7 +404,16 @@ document.addEventListener("DOMContentLoaded", function () {
         saved_cat_budget = [];
     }
 
+    const reset_save_button = document.getElementById('reset_save');
+    reset_save_button.addEventListener('click',resetData);
+
+    function resetData(){
+        resetrows();
+        saveData();
+        alert('Reset Save');
+    }
+
 
     
-    
+    loadData();
 });
