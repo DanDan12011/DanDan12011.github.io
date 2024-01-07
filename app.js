@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let spendingAmount_total = 0;
     let saved_cat_budget = [];
     let months_left_num = 0;
-    let updated_total_amount = 0;
     
     
     
@@ -54,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
    
     
-    
+    let categoryBudgets = [];
     
     function calculate_percents(){
         
@@ -66,7 +65,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const rowcount = table.rows.length;
         const budget_view = document.getElementById('final_budget');
         const spending_display = document.getElementById('spending_inputs');
-        const categoryBudgets = [];
+        categoryBudgets = [];
+        saved_cat_budget = [];
     
         const rowindex = rowcount;
 
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const percentage = parseFloat(percentInput.value);
 
                 console.log(`Row ${i} - Category: ${category}, Percentage: ${percentage}`);
-
+                
                 categoryBudgets.push({
                     category,
                     budget: (percentage / 100) * monthlyBudget_adv
@@ -95,6 +95,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
 
                 remaining_percent_pool += percentage;
+                console.log('CALCULATE PERCENTS');
+                console.log('index: ' + i + ' Category: ' + category + ' Percent: ' + percentage);
+                console.log('index: ' + i + ' Percent_pool: ' + remaining_percent_pool);
                 
                 if(remaining_percent_pool <= 100){
                     spending_display.innerHTML = '';
@@ -153,11 +156,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 if(spendingInput.value.trim() !== ''){
                     spendingAmount = parseFloat(spendingInput.value.replace(/,/g, ''));
                     spendingAmount_total += spendingAmount;
+                    console.log('SUBMIT SPENDING');
+                    console.log('spendingamount_total: ' + spendingAmount_total + ' spendingamount: ' + spendingAmount);
                 }
 
                 budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv);
                 const newBudget = categoryBudget - spendingAmount;
-                console.log('spendingamount: ' + spendingAmount_total);
+                
+            
                 categoryBudgetElement.textContent = `${categoryId}: $${newBudget.toFixed(2)}`;
                 spendingInput.value = '';
                 spendingAmount = 0;
@@ -187,7 +193,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         else {
             totalAmount_adv = totalAmount_adv - spendingAmount_total;
-            console.log('updated_total: ' + updated_total_amount);
             months_left_num ++;
             spendingAmount_total = 0;
             console.log('total: ' + totalAmount_adv);
@@ -321,6 +326,7 @@ document.addEventListener("DOMContentLoaded", function () {
         spending_display.innerHTML = '';
         remaining_percent_pool = 0;
         percent_pool_display.textContent = "%";
+        saved_cat_budget = [];
 
 
         let categoryInput = document.getElementById('category_1');
@@ -332,6 +338,8 @@ document.addEventListener("DOMContentLoaded", function () {
         totalAmount_adv.value = '';
         numberOfMonths_adv.value = '';
         monthlyBudget_adv.value = '';
+        totalAmountInput_adv.value = '';
+        monthsInput_adv.value = '';
 
         spendingAmount_total = 0;
         totalAmount_adv = 0;
@@ -354,16 +362,17 @@ document.addEventListener("DOMContentLoaded", function () {
     
 
     function saveData(){
+        
         const table = document.getElementById('tablerows');
         const rowcount = table.rows.length;
         localStorage.setItem('totalAmount_adv', totalAmountInput_adv.value);
         localStorage.setItem('numberOfMonths_adv', monthsInput_adv.value);
-        localStorage.setItem('monthlyBudget_adv', monthlyBudget_adv);
+        localStorage.setItem('monthlyBudget_adv', monthlyBudget_adv.toFixed(2));
         localStorage.setItem('saved_cat_budget', JSON.stringify(saved_cat_budget));
         localStorage.setItem('table_row_length',rowcount);
         localStorage.setItem('months_left_num',months_left_num);
-        localStorage.setItem('updated_total',updated_total_amount);
-        console.log('SAVED DATA: ' + 'totalAmount_adv = ' + totalAmount_adv + ' numberofMonths_adv = ' + numberOfMonths_adv + ' monthlyBudget_adv = ' + monthlyBudget_adv + ' budget ' + JSON.stringify(saved_cat_budget));
+        localStorage.setItem('money_spent',parseInt(spendingAmount_total));
+        console.log('SAVED DATA: ' + 'totalAmount_adv = ' + totalAmount_adv + ' numberofMonths_adv = ' + numberOfMonths_adv + ' monthlyBudget_adv = ' + monthlyBudget_adv +  ' spent_money: ' + spendingAmount_total + ' budget ' + JSON.stringify(saved_cat_budget));
         alert('Saved Budget');
 
 
@@ -373,12 +382,14 @@ document.addEventListener("DOMContentLoaded", function () {
     load_button.addEventListener('click',loadData);
 
     function loadData(){
+        saved_cat_budget = [];
+        remaining_percent_pool = 0;
         totalAmount_adv = parseFloat(localStorage.getItem('totalAmount_adv')) || 0;
         numberOfMonths_adv = parseInt(localStorage.getItem('numberOfMonths_adv')) || 0;
         monthlyBudget_adv = parseInt(localStorage.getItem('monthlyBudget_adv')) || 0;
         saved_cat_budget = JSON.parse(localStorage.getItem('saved_cat_budget')) || [];
+        spendingAmount_total = localStorage.getItem('money_spent') || 0;
         months_left_num = localStorage.getItem('months_left_num') || 0;
-        updated_total_amount = localStorage.getItem('updated_total') || 0;
         const rowcount = localStorage.getItem('table_row_length');
 
         for (let i = 1; i < rowcount; i++){
@@ -388,10 +399,12 @@ document.addEventListener("DOMContentLoaded", function () {
         for (let i = 0; i < rowcount; i++){
             const categoryInput = document.getElementById(`category_${i+1}`);
             const percentInput = document.getElementById(`category_percentage_${i+1}`);
+            const category = categoryInput.value;
+            const percentage = parseFloat(percentInput.value);
             categoryInput.value = saved_cat_budget[i].category;
             percentInput.value = saved_cat_budget[i].percentage;
             
-            console.log('LOADED: ' + categoryInput.value + ':' + percentInput.value + 'row: ' + i);
+            console.log('LOADED: ' + categoryInput.value + '['+i+']' + percentInput.value +'['+i+']'+ ' row: ' + i);
 
         }
 
@@ -399,18 +412,26 @@ document.addEventListener("DOMContentLoaded", function () {
         monthsInput_adv.value = numberOfMonths_adv;
         calculateBudget_adv();
         calculate_percents();
-        budgetdisplay_adv()
-        console.log('LOADED DATA: ' + ' Tot: ' + totalAmount_adv + ' Months: ' + numberOfMonths_adv + ' month budg: ' + monthlyBudget_adv + ' spent_money: ' + spendingAmount_total + ' saved_cats: ' + saved_cat_budget );
-        saved_cat_budget = [];
+        console.log('LOADED DATA: ' + ' Tot: ' + totalAmount_adv + ' Months: ' + numberOfMonths_adv + ' month budg: ' + monthlyBudget_adv + ' spent_money: ' + spendingAmount_total + ' saved_cats: ' + JSON.stringify(saved_cat_budget) + ' Percent_pool: ' + remaining_percent_pool);
+        
     }
 
     const reset_save_button = document.getElementById('reset_save');
     reset_save_button.addEventListener('click',resetData);
 
     function resetData(){
-        resetrows();
-        saveData();
-        alert('Reset Save');
+        localStorage.removeItem('totalAmount_adv');
+        localStorage.removeItem('numberOfMonths_adv');
+        localStorage.removeItem('monthlyBudget_adv');
+        localStorage.removeItem('saved_cat_budget');
+        localStorage.removeItem('table_row_length');
+        localStorage.removeItem('months_left_num');
+        localStorage.removeItem('money_spent');
+        spendingAmount_total = 0;
+        loadData();
+        
+        console.log('RESET DATA');
+        console.log('totalAmount_adv = ' + totalAmount_adv + ' numberofMonths_adv = ' + numberOfMonths_adv + ' monthlyBudget_adv = ' + monthlyBudget_adv + ' budget ' + JSON.stringify(saved_cat_budget));
     }
 
 
