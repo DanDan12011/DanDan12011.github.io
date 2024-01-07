@@ -427,11 +427,11 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.removeItem('table_row_length');
         localStorage.removeItem('months_left_num');
         localStorage.removeItem('money_spent');
-        spendingAmount_total = 0;
-        loadData();
+        
         
         console.log('RESET DATA');
         console.log('totalAmount_adv = ' + totalAmount_adv + ' numberofMonths_adv = ' + numberOfMonths_adv + ' monthlyBudget_adv = ' + monthlyBudget_adv + ' budget ' + JSON.stringify(saved_cat_budget));
+        alert('Saves Reset');
     }
 
 
