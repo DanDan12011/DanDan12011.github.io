@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let saved_cat_budget = [];
     let months_left_num = 0;
     
+    
     // Function to calculate the budget
     function calculateBudget_adv() {
 
@@ -120,10 +121,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
+    const finalBudgetView = document.getElementById('final_budget');
+    let divElements = finalBudgetView.querySelectorAll('div');
+    let divTextContentsArray = [];
+
+    // Function to update and save the final budget view
+    function updateAndSaveFinalBudgetView() {
+        divElements = finalBudgetView.querySelectorAll('div');
+
+        // Create an object to store the text content of each div
+        divTextContentsArray = Array.from(divElements).map(divElement => ({
+            id: divElement.id,
+            textContent: divElement.textContent
+        }));
+    
+    }
+
     const submit_spending_button = document.getElementById('submit_spendings');
     submit_spending_button.addEventListener('click', submitSpendings);
     
     function submitSpendings() {
+        
         const spendingList = document.getElementById('spending_inputs');
         const spendingInputs = spendingList.querySelectorAll('[id^="input_for_"]');
         const budgetView = document.getElementById('final_budget');
@@ -152,6 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 categoryBudgetElement.textContent = `${categoryId}: $${newBudget.toFixed(2)}`;
                 spendingInput.value = '';
                 spendingAmount = 0;
+                
             }
         });
     }
@@ -336,8 +355,14 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem('table_row_length',rowcount);
         localStorage.setItem('months_left_num',months_left_num);
         localStorage.setItem('money_spent',parseInt(spendingAmount_total));
-        console.log('SAVED DATA: ' + 'totalAmount_adv = ' + totalAmount_adv + ' numberofMonths_adv = ' + numberOfMonths_adv + ' monthlyBudget_adv = ' + monthlyBudget_adv +  ' spent_money: ' + spendingAmount_total + ' budget ' + JSON.stringify(saved_cat_budget));
+        updateAndSaveFinalBudgetView();
+        localStorage.setItem('final_budget_view', JSON.stringify(divTextContentsArray));
+    
+        console.log('SAVED DATA: ' + 'totalAmount_adv = ' + totalAmount_adv + ' numberofMonths_adv = ' + numberOfMonths_adv + ' monthlyBudget_adv = ' + monthlyBudget_adv + ' spent_money: ' + spendingAmount_total + ' budget ' + JSON.stringify(saved_cat_budget) + 'Budget View: ' + JSON.stringify(divTextContentsArray));
         alert('Saved Budget');
+        
+
+        
 
 
     }
@@ -355,6 +380,9 @@ document.addEventListener("DOMContentLoaded", function () {
         spendingAmount_total = parseInt(localStorage.getItem('money_spent')) || 0;
         months_left_num = localStorage.getItem('months_left_num') || 0;
         const rowcount = localStorage.getItem('table_row_length');
+        const savedFinalBudgetView = JSON.parse(localStorage.getItem('final_budget_view')) || [];
+        const divElementIds = JSON.parse(localStorage.getItem('divelement_ids')) || [];
+        
 
         for (let i = 1; i < rowcount; i++){
             addrow();
@@ -372,10 +400,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
 
+
+        
+
         totalAmountInput_adv.value = totalAmount_adv;
         monthsInput_adv.value = numberOfMonths_adv;
         calculateBudget_adv();
         calculate_percents();
+
+        if (savedFinalBudgetView !== null) {
+            const divTextContentsArray = savedFinalBudgetView;
+    
+            // Set the text content of each div
+            divTextContentsArray.forEach(divInfo => {
+                const divElement = document.getElementById(divInfo.id);
+                if (divElement) {
+                    divElement.textContent = divInfo.textContent;
+                    console.log('BUDGET_VIEW_DIVS: ' + divElement + ' ' + divInfo.id + ' ' + divInfo.textContent);
+
+                } else {
+                    console.log('NOT LOADED BUDGET_VIEW_DIVS: ' + divElement + ' ' + divInfo.id + ' ' + divInfo.textContent);
+                }
+            });
+        } else {
+            console.log('NOT LOADED BUDGET_VIEW_DIVS: ' + JSON.stringify(divTextContentsArray));
+        }
         console.log('LOADED DATA: ' + ' Tot: ' + totalAmount_adv + ' Months: ' + numberOfMonths_adv + ' month budg: ' + monthlyBudget_adv + ' spent_money: ' + spendingAmount_total + ' saved_cats: ' + JSON.stringify(saved_cat_budget) + ' Percent_pool: ' + remaining_percent_pool);
         
     }
@@ -399,4 +448,5 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     loadData();
+    
 });
