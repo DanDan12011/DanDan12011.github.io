@@ -371,6 +371,7 @@ document.addEventListener("DOMContentLoaded", function () {
     load_button.addEventListener('click',loadData);
 
     function loadData(){
+        resetrows();
         saved_cat_budget = [];
         remaining_percent_pool = 0;
         totalAmount_adv = parseFloat(localStorage.getItem('totalAmount_adv')) || 0;
