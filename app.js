@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const submit_btn = document.getElementById('submit');
     submit_btn.addEventListener('click',calculate_percents);
     let totalAmount_adv = 0;
+    let updated_total_amount = 0;
     let numberOfMonths_adv = 0;
     let monthlyBudget_adv = 0;
     let spendingAmount = 0;
@@ -28,24 +29,35 @@ document.addEventListener("DOMContentLoaded", function () {
     let months_left_num = 0;
     
     
+    
+    
     // Function to calculate the budget
     function calculateBudget_adv() {
 
-        totalAmount_adv = parseFloat(totalAmountInput_adv.value.replace(/,/g, ''));
-        numberOfMonths_adv = parseInt(monthsInput_adv.value);
+        
+
+        
+
+        
 
         if (!isNaN(totalAmount_adv) && !isNaN(numberOfMonths_adv) && numberOfMonths_adv > 0) {
-            monthlyBudget_adv = totalAmount_adv / numberOfMonths_adv;
+            monthlyBudget_adv = parseFloat(totalAmountInput_adv.value.replace(/,/g, '')) / parseInt(monthsInput_adv.value);
             
             budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv);
             
         } else {
+            totalAmount_adv = parseFloat(totalAmountInput_adv.value.replace(/,/g, ''));
+            numberOfMonths_adv = parseInt(monthsInput_adv.value);
             totalAmount_adv = 0;
             numberOfMonths_adv = 0;
             monthlyBudget_adv = 0;
             budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv);
         }
 
+        console.log('CALCULATE BUDGET');
+        console.log('total_amount: ' + totalAmount_adv);
+        console.log('monthly_budg: ' + monthlyBudget_adv);
+        console.log('END CALCULATE BUDGET');
 }
 
     let categoryBudgets = [];
@@ -66,18 +78,15 @@ document.addEventListener("DOMContentLoaded", function () {
         const rowindex = rowcount;
 
         for (let i = 1; i <= rowcount; i++){
-            console.log('rowcount: ' + rowcount);
             
             const categoryInput = document.getElementById(`category_${i}`);
             const percentInput = document.getElementById(`category_percentage_${i}`);
-            console.log('category: ' + categoryInput.value + " Percent: " + percentInput.value);
             
 
             if (categoryInput && percentInput && categoryInput.value.trim() !== '' && percentInput.value.trim() !== '' && !isNaN(monthlyBudget_adv)) {
                 const category = categoryInput.value;
                 const percentage = parseFloat(percentInput.value);
 
-                console.log(`Row ${i} - Category: ${category}, Percentage: ${percentage}`);
                 
                 categoryBudgets.push({
                     category,
@@ -93,6 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.log('CALCULATE PERCENTS');
                 console.log('index: ' + i + ' Category: ' + category + ' Percent: ' + percentage);
                 console.log('index: ' + i + ' Percent_pool: ' + remaining_percent_pool);
+                console.log('END CALCULATE PERCENTS');
                 
                 if(remaining_percent_pool <= 100){
                     spending_display.innerHTML = '';
@@ -160,7 +170,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     spendingAmount = parseFloat(spendingInput.value.replace(/,/g, ''));
                     spendingAmount_total = spendingAmount_total + spendingAmount;
                     console.log('SUBMIT SPENDING');
-                    console.log('spendingamount_total: ' + spendingAmount_total + ' spendingamount: ' + spendingAmount);
+                    console.log('category: ' + categoryId + ' expenses: ' + spendingAmount);
+                    console.log('Total expenses: ' + spendingAmount_total);
+                    console.log('END SUBMIT SPENDING');
                 }
 
                 budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv);
@@ -195,9 +207,13 @@ document.addEventListener("DOMContentLoaded", function () {
         else {
             totalAmount_adv = totalAmount_adv - spendingAmount_total;
             months_left_num ++;
-            spendingAmount_total = 0;
+            // spendingAmount_total = 0;
+            console.log('NEXT_MONTH');
             console.log('total: ' + totalAmount_adv);
             console.log('months: ' + numberOfMonths_adv);
+            console.log('monthly_budg: ' + monthlyBudget_adv);
+            console.log('months left: ' + months_left_num);
+            console.log(' END NEXT_MONTH');
             budgetdisplay_adv(totalAmount_adv,monthlyBudget_adv,numberOfMonths_adv);
             resetspendings();
         
@@ -206,20 +222,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
+    
+    let updatedmonthly_budg = 0;
     function budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv){
         const total_adv = document.getElementById('totalamount_budget_adv');
         const budget_adv = document.getElementById("monthly_budgetdisplay_adv");
         const months_left = document.getElementById('months_left');
         const categoryBudgets = document.getElementById('final_budget');
         
-        console.log('monthlybudg: ' + monthlyBudget_adv + ' spendings: ' + spendingAmount_total);
-        const updatedmonthly_budg = monthlyBudget_adv -= spendingAmount_total;
-        console.log('new monthly budget: ' + updatedmonthly_budg);
+        const updatedtotal_budg = totalAmount_adv - spendingAmount_total;
+        updatedmonthly_budg = monthlyBudget_adv - spendingAmount_total;
+
+        console.log('BUDGET_DISPLAY');
+        console.log('Total Budget: ' + totalAmount_adv);
+        console.log('months: ' + numberOfMonths_adv);
+        console.log('Monthly Budget: ' + totalAmount_adv + '/' + numberOfMonths_adv + '=' + (totalAmount_adv/numberOfMonths_adv));
+        console.log('Updated Monthly Budget: ' + totalAmount_adv + '/' + numberOfMonths_adv + ' - ' + ' $ ' + spendingAmount_total + ' = ' + (updatedmonthly_budg.toFixed(2)));
+        console.log('updated_total: ' + updatedtotal_budg);
+        console.log('END BUDGET_DISPLAY');
+
 
         if(!isNaN(monthlyBudget_adv)){
-            total_adv.textContent = "Total Budget: $" + (totalAmount_adv - spendingAmount_total).toFixed(2);
+            total_adv.textContent = "Total Budget: $" + updatedtotal_budg.toFixed(2);
             budget_adv.textContent = "Monthly Budget: $" + updatedmonthly_budg.toFixed(2);
             months_left.textContent = "Months Left: " + (numberOfMonths_adv - months_left_num);
+            
         }
     }
 
@@ -348,18 +375,21 @@ document.addEventListener("DOMContentLoaded", function () {
         
         const table = document.getElementById('tablerows');
         const rowcount = table.rows.length;
-        localStorage.setItem('totalAmount_adv', totalAmountInput_adv.value);
+        localStorage.setItem('totalAmountInput_adv', totalAmountInput_adv.value);
+        localStorage.setItem('totalAmount_adv',totalAmount_adv);
         localStorage.setItem('numberOfMonths_adv', monthsInput_adv.value);
         localStorage.setItem('monthlyBudget_adv', monthlyBudget_adv.toFixed(2));
+        localStorage.setItem('updated_monthly_budg',updatedmonthly_budg);
         localStorage.setItem('saved_cat_budget', JSON.stringify(saved_cat_budget));
         localStorage.setItem('table_row_length',rowcount);
         localStorage.setItem('months_left_num',months_left_num);
         localStorage.setItem('money_spent',parseInt(spendingAmount_total));
         updateAndSaveFinalBudgetView();
         localStorage.setItem('final_budget_view', JSON.stringify(divTextContentsArray));
-    
-        console.log('SAVED DATA: ' + 'totalAmount_adv = ' + totalAmount_adv + ' numberofMonths_adv = ' + numberOfMonths_adv + ' monthlyBudget_adv = ' + monthlyBudget_adv + ' spent_money: ' + spendingAmount_total + ' budget ' + JSON.stringify(saved_cat_budget) + 'Budget View: ' + JSON.stringify(divTextContentsArray));
+        updatedtotal_budg = localStorage.getItem('updated_total_amount') || 0;
+        console.log('SAVED DATA: ' + ' Tot: ' + totalAmount_adv + ' Months: ' + numberOfMonths_adv + ' month budg: ' + monthlyBudget_adv + ' updated_monthyl_budg: ' + updatedmonthly_budg + ' spent_money: ' + spendingAmount_total + ' saved_cats: ' + JSON.stringify(saved_cat_budget) + ' Percent_pool: ' + remaining_percent_pool);
         alert('Saved Budget');
+
         
 
         
@@ -376,10 +406,11 @@ document.addEventListener("DOMContentLoaded", function () {
         remaining_percent_pool = 0;
         totalAmount_adv = parseFloat(localStorage.getItem('totalAmount_adv')) || 0;
         numberOfMonths_adv = parseInt(localStorage.getItem('numberOfMonths_adv')) || 0;
-        monthlyBudget_adv = parseInt(localStorage.getItem('monthlyBudget_adv')) || 0;
         saved_cat_budget = JSON.parse(localStorage.getItem('saved_cat_budget')) || [];
         spendingAmount_total = parseInt(localStorage.getItem('money_spent')) || 0;
         months_left_num = localStorage.getItem('months_left_num') || 0;
+        updatedmonthly_budg = localStorage.getItem('updated_monthly_budg')||0;
+        monthlyBudget_adv = parseInt(localStorage.getItem('monthlyBudget_adv')) || 0;
         const rowcount = localStorage.getItem('table_row_length');
         const savedFinalBudgetView = JSON.parse(localStorage.getItem('final_budget_view')) || [];
         const divElementIds = JSON.parse(localStorage.getItem('divelement_ids')) || [];
@@ -404,10 +435,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         
 
-        totalAmountInput_adv.value = totalAmount_adv;
+        totalAmountInput_adv.value = localStorage.getItem('totalAmountInput_adv');
         monthsInput_adv.value = numberOfMonths_adv;
         calculateBudget_adv();
         calculate_percents();
+
+
 
         if (savedFinalBudgetView !== null) {
             const divTextContentsArray = savedFinalBudgetView;
@@ -426,8 +459,10 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             console.log('NOT LOADED BUDGET_VIEW_DIVS: ' + JSON.stringify(divTextContentsArray));
         }
-        console.log('LOADED DATA: ' + ' Tot: ' + totalAmount_adv + ' Months: ' + numberOfMonths_adv + ' month budg: ' + monthlyBudget_adv + ' spent_money: ' + spendingAmount_total + ' saved_cats: ' + JSON.stringify(saved_cat_budget) + ' Percent_pool: ' + remaining_percent_pool);
-        
+
+        console.log('LOADED DATA: ' + ' Tot: ' + totalAmount_adv + ' Months: ' + numberOfMonths_adv + ' month budg: ' + monthlyBudget_adv + ' updated_monthyl_budg: ' + updatedmonthly_budg + ' spent_money: ' + spendingAmount_total + ' saved_cats: ' + JSON.stringify(saved_cat_budget) + ' Percent_pool: ' + remaining_percent_pool);
+        // budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv);
+
     }
 
     const reset_save_button = document.getElementById('reset_save');
