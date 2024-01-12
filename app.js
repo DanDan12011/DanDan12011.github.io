@@ -17,6 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
     //this allows a function to play when the user inputs something
     totalAmountInput_adv.addEventListener('input',calculateBudget_adv);
     monthsInput_adv.addEventListener('input',calculateBudget_adv);
+    totalAmountInput_adv.addEventListener('input',set_total_months);
+    monthsInput_adv.addEventListener('input',set_total_months);
     const submit_btn = document.getElementById('submit');
     submit_btn.addEventListener('click',calculate_percents);
     let totalAmount_adv = 0;
@@ -29,16 +31,17 @@ document.addEventListener("DOMContentLoaded", function () {
     let months_left_num = 0;
     
     
-    
+    function set_total_months(){
+        totalAmount_adv = parseFloat(totalAmountInput_adv.value.replace(/,/g, ''));
+        numberOfMonths_adv = parseInt(monthsInput_adv.value);
+        months_left_num = 0;
+        budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv);
+
+
+    }
     
     // Function to calculate the budget
     function calculateBudget_adv() {
-
-        
-
-        
-
-        
 
         if (!isNaN(totalAmount_adv) && !isNaN(numberOfMonths_adv) && numberOfMonths_adv > 0) {
             monthlyBudget_adv = parseFloat(totalAmountInput_adv.value.replace(/,/g, '')) / parseInt(monthsInput_adv.value);
@@ -46,8 +49,6 @@ document.addEventListener("DOMContentLoaded", function () {
             budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv);
             
         } else {
-            totalAmount_adv = parseFloat(totalAmountInput_adv.value.replace(/,/g, ''));
-            numberOfMonths_adv = parseInt(monthsInput_adv.value);
             totalAmount_adv = 0;
             numberOfMonths_adv = 0;
             monthlyBudget_adv = 0;
