@@ -15,8 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
     
     // Adding event listner
     //this allows a function to play when the user inputs something
-    totalAmountInput_adv.addEventListener('input',calculateBudget_adv);
-    monthsInput_adv.addEventListener('input',calculateBudget_adv);
+    // totalAmountInput_adv.addEventListener('input',calculateBudget_adv);
+    // monthsInput_adv.addEventListener('input',calculateBudget_adv);
     totalAmountInput_adv.addEventListener('input',set_total_months);
     monthsInput_adv.addEventListener('input',set_total_months);
     const submit_btn = document.getElementById('submit');
@@ -35,7 +35,8 @@ document.addEventListener("DOMContentLoaded", function () {
         totalAmount_adv = parseFloat(totalAmountInput_adv.value.replace(/,/g, ''));
         numberOfMonths_adv = parseInt(monthsInput_adv.value);
         months_left_num = 0;
-        budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv);
+        calculateBudget_adv();
+        // budgetdisplay_adv(totalAmount_adv, monthlyBudget_adv, numberOfMonths_adv);
 
 
     }
