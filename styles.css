@@ -101,7 +101,7 @@ body {
 
 #monthly_budgetdisplay_adv{
     font-weight: 500;
-    font-size: 30px;
+    font-size: 25px;
 }
 #table_container {
     display: table;
@@ -262,7 +262,7 @@ body {
 #submit_spendings {
     background-color: #227a10;
     color: #fff;
-    font-size: 13px;
+    font-size: 12px;
     /* padding-top: 15px;
     padding-bottom: 15px; */
 }
