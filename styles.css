@@ -2,6 +2,9 @@
 
 /* body affects the entire webpage */
 
+
+
+
 @font-face {
     font-family: 'Pixel';
     src: url('VCR_OSD_MONO_1.001.ttf') format('truetype');
@@ -12,7 +15,7 @@ body {
     align-items: center;
     margin: 0 auto;
     flex-direction: column;
-    background-color: #84ce87;
+    background-color: #ffffb2;
     font-family: 'Pixel', sans-serif;
 
 }
@@ -32,7 +35,7 @@ body {
 #reset_save{
     padding: 10px 10px;
     border-radius: 5px;
-    background-color: #f56767;
+    background-color: #d7b550;
     color: #000000;
     font-weight: 600;
     cursor: pointer; 
@@ -41,7 +44,7 @@ body {
 #save {
     padding: 10px 10px;
     border-radius: 5px;
-    background-color: #ede87b;
+    background-color: #90d59c;
     color: #000000;
     font-weight: 600;
     cursor: pointer;
@@ -51,7 +54,7 @@ body {
 #load {
     padding: 10px 10px;
     border-radius: 5px;
-    background-color: #68e759;
+    background-color: #68a8ab;
     color: #000000;
     font-weight: 600;
     cursor: pointer;
@@ -92,11 +95,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #227a10;
-    color: #fff;
+    background-color: #90d59c;
     margin-top: 10px;
     border-radius: 5px;
-    border: 4px solid #1b5420;
+    border: 4px solid #2a242b;
 }
 
 #monthly_budgetdisplay_adv{
@@ -109,10 +111,10 @@ body {
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
-    background-color: #61bd4e;
+    background-color: #cc7048;
     padding: 10px 10px;
     border-radius: 5px;
-    border: 4px solid #1b5420;
+    border: 4px solid #2a242b;
     
 
 }
@@ -142,7 +144,7 @@ body {
     margin: 0 auto;
     border-radius: 5px;
     padding: 10px 165px;
-    background-color: #243baa;
+    background-color: #68a8ab;
     color: #fff;
     cursor: pointer;
     
@@ -156,7 +158,7 @@ body {
     display: flex;
     border-radius: 5px;
     padding: 10px 63px;
-    background-color: #227a10;
+    background-color: #90d59c;
     color: #fff;
     cursor: pointer;
  
@@ -166,7 +168,7 @@ body {
     display: flex;
     border-radius: 5px;
     padding: 10px 58px;
-    background-color: #b33323;
+    background-color: #cc5348;
     color: #fff;
     cursor: pointer;
 }
@@ -177,7 +179,7 @@ body {
     margin: 0 auto;
     border-radius: 5px;
     padding: 10px 154px;
-    background-color: #bcb41c;
+    background-color: #d7b550;
     color: #fff;
     cursor: pointer;
 }
@@ -197,8 +199,9 @@ body {
     padding: 10px 10px;
     display: flex;
     justify-content: space-between;
-    background-color: #243baa;
+    background-color: #775b5b;
     color: #fff;
+    border: 4px solid #2a242b;
 }
 
 
@@ -239,36 +242,35 @@ body {
 
 #Budget_options {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     flex-direction: row;
+    border: 2px solid #2a242b;
 }
 
 #reset_spendings, #submit_spendings, #next_month {
     flex: 1;
-    justify-content: space-evenly;
     padding-top: 15px;
     padding-bottom: 15px;
     cursor: pointer;
+    font-size: 12px;
 }
 
 #reset_spendings {
-    background-color: #bcb41c;
+    background-color: #d7b550;
     color: #fff;
     /* padding-top: 20px;
     padding-bottom: 20px; */
 }
 
 #submit_spendings {
-    background-color: #227a10;
+    background-color: #90d59c;
     color: #fff;
-    font-size: 12px;
     /* padding-top: 15px;
     padding-bottom: 15px; */
 }
 
 #next_month {
-    background-color: #415de8;
+    background-color: #68a8ab;
     color: #fff;
     /* padding-top: 15px;
     padding-bottom: 15px; */
