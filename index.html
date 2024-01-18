@@ -7,7 +7,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
     <!-- link rel allows you to connect html to css to stylize the webpage -->
     <!-- script defer src allows to connect the html to a javascript file to allow for functions and backend work -->
 
@@ -21,73 +20,74 @@
 <!-- divs are basically containers that can hold multiple different things in them -->
 <!-- when giving an id to a div, you can use this id to call it later in a css or javascript file -->
 
-
-<div id="page_view">
-    <div id = 'save_load'>
-        <button id = 'reset_save'>Reset Saves</button>
-        <button id = 'save'>Save</button>
-        <button id = 'load'>Load</button>
-    </div>
-    <div id="container">                             
-        <h1>Enter your Total Amount of Money</h1> 
-
-        <div id="Enteringamount">
-
-            <h3 id = "totalamount-container">$
-            <input id="totalamount_adv">
-            </h3>
+<body>
+    <div id="page_view">
+        <div id = 'save_load'>
+            <button id = 'reset_save'>Reset Saves</button>
+            <button id = 'save'>Save</button>
+            <button id = 'load'>Load</button>
         </div>
+        <div id="container">                             
+            <h1>Enter your Total Amount of Money</h1> 
 
-        <div id ="showbudget">
-            <h1>Enter number of months you want to budget</h1>
-            <h3>Months 
-            <input id = "months_adv">
-            </h3>
-        </div>
-    </div>
-    <div id = budgets_container>
-        <div id = "totalamount_budget_adv"></div>
-        <div id = "monthly_budgetdisplay_adv"></div>
-        <div id = "months_left"></div>
-    </div>
-    <div id="table_container">
-        <table id = 'table'>
-            <thead>
-                <tr>
-                    <th>Category</th>
-                    <th id = 'percent_pool'>%</th>
-                </tr>
-            </thead>
-            <tbody id = 'tablerows'>
-                <tr>
-                    <div id = 'rows_container'>
-                        <td><input id = "category_1" placeholder = "Category"></td>
-                        <td><input  id = "category_percentage_1" placeholder="Percentage" ></td>
-                    </div>
-                </tr>
-            </tbody>
-        </table>
-        <div id = 'button_container'>
-            <button id = 'submit'>Submit</button>
-            <div id = 'add_delete'>
-                <button id = "deleterow">Delete Row</button>
-                <button id = "addrow">Add Row</button>
+            <div id="Enteringamount">
+
+                <h3 id = "totalamount-container">$
+                <input id="totalamount_adv">
+                </h3>
             </div>
-            <button id = 'resetrows'>Reset All</button>
+
+            <div id ="showbudget">
+                <h1>Enter number of months you want to budget</h1>
+                <h3>Months 
+                <input id = "months_adv">
+                </h3>
+            </div>
+        </div>
+        <div id = budgets_container>
+            <div id = "totalamount_budget_adv"></div>
+            <div id = "monthly_budgetdisplay_adv"></div>
+            <div id = "months_left"></div>
+        </div>
+        <div id="table_container">
+            <table id = 'table'>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th id = 'percent_pool'>%</th>
+                    </tr>
+                </thead>
+                <tbody id = 'tablerows'>
+                    <tr>
+                        <div id = 'rows_container'>
+                            <td><input id = "category_1" placeholder = "Category"></td>
+                            <td><input  id = "category_percentage_1" placeholder="Percentage" ></td>
+                        </div>
+                    </tr>
+                </tbody>
+            </table>
+            <div id = 'button_container'>
+                <button id = 'submit'>Submit</button>
+                <div id = 'add_delete'>
+                    <button id = "deleterow">Delete Row</button>
+                    <button id = "addrow">Add Row</button>
+                </div>
+                <button id = 'resetrows'>Reset All</button>
+            </div>
+        </div>
+        <div id = 'budget_header'>
+            <div id = 'budget_categories'>Categories
+                <div id = 'final_budget'></div>
+            </div>
+            <div id = 'spending'>Spendings
+                <div id = 'spending_inputs'></div>
+            </div>
+        </div>
+        <div id = 'Budget_options'>
+            <button id = 'reset_spendings'>Reset Spendings</button>
+            <button id = 'submit_spendings'>Submit Spendings</button>
+            <button id = 'next_month'>Next Month</button>
         </div>
     </div>
-    <div id = 'budget_header'>
-        <div id = 'budget_categories'>Categories
-            <div id = 'final_budget'></div>
-        </div>
-        <div id = 'spending'>Spendings
-            <div id = 'spending_inputs'></div>
-        </div>
-    </div>
-    <div id = 'Budget_options'>
-        <button id = 'reset_spendings'>Reset Spendings</button>
-        <button id = 'submit_spendings'>Submit Spendings</button>
-        <button id = 'next_month'>Next Month</button>
-    </div>
-</div>
+</body>
 </html>

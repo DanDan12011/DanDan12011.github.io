@@ -2,15 +2,21 @@
 
 /* body affects the entire webpage */
 
+@font-face {
+    font-family: 'Pixel';
+    src: url('VCR_OSD_MONO_1.001.ttf') format('truetype');
+}
+
 body {
     display: flex;
     align-items: center;
     margin: 0 auto;
     flex-direction: column;
-    background-color: #c9efc1;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #84ce87;
+    font-family: 'Pixel', sans-serif;
 
 }
+
 
 /* # is used to call an id, when you use a class to define something you would simple use ".nameofdiv" */
 
@@ -19,6 +25,7 @@ body {
     align-items: center;
     justify-content: center;
     margin-right: 15px;
+    
     
 }
 
@@ -38,6 +45,7 @@ body {
     color: #000000;
     font-weight: 600;
     cursor: pointer;
+    
 }
 
 #load {
@@ -47,6 +55,7 @@ body {
     color: #000000;
     font-weight: 600;
     cursor: pointer;
+    
 }
 
 #container {
@@ -56,7 +65,6 @@ body {
     align-items: center;
     text-align: center;
     font-size: 14px;
-
 }
 
 #container h3 {
@@ -88,6 +96,7 @@ body {
     color: #fff;
     margin-top: 10px;
     border-radius: 5px;
+    border: 4px solid #1b5420;
 }
 
 #monthly_budgetdisplay_adv{
@@ -103,6 +112,7 @@ body {
     background-color: #61bd4e;
     padding: 10px 10px;
     border-radius: 5px;
+    border: 4px solid #1b5420;
     
 
 }
@@ -116,6 +126,7 @@ body {
 #table td{
     margin-left: 10px;
     padding: 10px 10px;
+    
 }
 
 #button_container {
@@ -154,7 +165,7 @@ body {
 #deleterow {
     display: flex;
     border-radius: 5px;
-    padding: 10px 60px;
+    padding: 10px 58px;
     background-color: #b33323;
     color: #fff;
     cursor: pointer;
@@ -165,10 +176,18 @@ body {
     align-items: center;
     margin: 0 auto;
     border-radius: 5px;
-    padding: 10px 160px;
+    padding: 10px 154px;
     background-color: #bcb41c;
     color: #fff;
     cursor: pointer;
+}
+
+#category_1, #category_2, #category_3, #category_4, #category_5, #category_6 {
+    font-family: inherit;
+}
+
+#category_percentage_1,#category_percentage_2,#category_percentage_3,#category_percentage_4,#category_percentage_5,#category_percentage_6{
+    font-family: inherit;
 }
 
 #budget_header  {
@@ -182,15 +201,18 @@ body {
     color: #fff;
 }
 
+
 #spending {
     display: flex;
     flex-direction: column;
+    font-family: inherit;
 }
 
-#spending_inputs {
+#spending_inputs, input {
     display: flex;
     flex-direction: column;
     gap: 18px;
+    font-family: inherit;
 }
 
 #budget_categories {
@@ -224,26 +246,34 @@ body {
 
 #reset_spendings, #submit_spendings, #next_month {
     flex: 1;
+    justify-content: space-evenly;
+    padding-top: 15px;
+    padding-bottom: 15px;
     cursor: pointer;
 }
 
 #reset_spendings {
     background-color: #bcb41c;
     color: #fff;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    /* padding-top: 20px;
+    padding-bottom: 20px; */
 }
 
 #submit_spendings {
     background-color: #227a10;
     color: #fff;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    font-size: 13px;
+    /* padding-top: 15px;
+    padding-bottom: 15px; */
 }
 
 #next_month {
     background-color: #415de8;
     color: #fff;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    /* padding-top: 15px;
+    padding-bottom: 15px; */
+}
+
+#input, button {
+    font-family: inherit;
 }
