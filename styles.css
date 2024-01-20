@@ -15,7 +15,7 @@ body {
     align-items: center;
     margin: 0 auto;
     flex-direction: column;
-    background-color: #ffffb2;
+    background-color: #ccffb2;
     font-family: 'Pixel', sans-serif;
 
 }
@@ -107,7 +107,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
-    background-color: #cc7048;
+    background-color: #e1f09c;
     padding: 10px 10px;
     border: 4px solid #2a242b;
     
@@ -190,7 +190,7 @@ body {
     padding: 10px 10px;
     display: flex;
     justify-content: space-between;
-    background-color: #775b5b;
+    background-color: #4da9db;
     color: #fff;
     border: 4px solid #2a242b;
 }
@@ -218,10 +218,10 @@ body {
 
 #final_budget {
     font-weight: 350;
-    font-size: 25px;
+    font-size: 20px;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 17px;
     color: #fff;
 }
 
